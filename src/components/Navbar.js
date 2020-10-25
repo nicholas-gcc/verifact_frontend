@@ -41,7 +41,7 @@ const CustomButton = styled(Button)`
   font-weight: bold;
   font-size: 14px;
 
-  :hover{
+  &:hover{
     background-color: lightgrey;
     color: #30323D;
   }

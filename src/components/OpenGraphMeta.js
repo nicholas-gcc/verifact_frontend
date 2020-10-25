@@ -13,7 +13,7 @@ export default function OpenGraphMeta(props) {
       <ContentWrapper style={{ paddingLeft: "10px" }}>
         <ExternalLinkWrapper>
           <FiExternalLink />
-          <a onClick={event => { event.stopPropagation(); }} href={media_url} >{media_url}</a>
+          <CustomeLink onClick={event => { event.stopPropagation(); }} href={media_url} >{media_url}</CustomeLink>
         </ExternalLinkWrapper>
         <div style={{ overflow: "auto" }}>
           {media_title}
@@ -42,4 +42,8 @@ const ExternalLinkWrapper = styled.div`
 
 const CustomeImage = styled(Image)`
 border-style: none;
+`;
+
+const CustomeLink = styled.a`
+  font-size: 10px;
 `;

@@ -6,7 +6,7 @@ export default (props) => {
   return <CustomNavbar sticky="top" collapseOnSelect expand="md" >
     <Navbar.Brand href="/" style={{ color: "#30323D" }}>SG VERIFACT</Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-    <Navbar.Collapse id="responsive-navbar-nav">
+    <Navbar.Collapse id="responsive-navbar-nav" style={{ backgroundColor: 'white', width: '100px' }}>
       <Nav className="mr-auto"></Nav>
       <Nav style={{ alignItems: 'center' }}>
         <Nav.Link style={{ color: "#30323D" }} href="login">Log In</Nav.Link>
@@ -18,11 +18,11 @@ export default (props) => {
         </Nav.Link>
       </Nav>
     </Navbar.Collapse>
-  </CustomNavbar>
+  </CustomNavbar >
 };
 
 const CustomNavbar = styled(Navbar)`
-  background: white;
+  background-color: white;
   height: 59px;
   padding: 0px 30px;
   font-family: SF Pro Text;
@@ -32,7 +32,7 @@ const CustomNavbar = styled(Navbar)`
 `;
 
 const CustomButton = styled(Button)`
-  background: #EEF0F2;
+  background-color: #EEF0F2;
   color: #30323D;
   border: none;
   border-radius: 10px;

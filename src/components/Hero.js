@@ -6,7 +6,7 @@ const close = (display, setDisplay) => {
   setDisplay(!display);
 }
 
-export default function NotificationCard(props) {
+export default function Hero(props) {
   const [display, setDisplay] = useState(true)
   const welcomeTitle = "Your home for verifying credible news"
   const welcomeContent = "Post a question to our community of news sleuths to get answers and new perspectives about the news your reading"

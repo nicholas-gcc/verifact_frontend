@@ -17,7 +17,6 @@ const getQuestionById = (question_id) => {
 }
 
 const handleClick = (history, question_id) => {
-  console.log("enter  ")
   history.push("/question/" + question_id);
 }
 

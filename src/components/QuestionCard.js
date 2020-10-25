@@ -20,7 +20,7 @@ const clickhandle = (history, question_id) => {
 export default function QuestionCard(props) {
   const [data, setData] = useState({ up_votes: "12", username: "" })
   let history = useHistory();
-  const { question_id, visual } = props
+  const { question_id } = props
   const up_votes = "1100"
   const username = "Mr. ABC"
   const question = "Is it true that everything happens for a reason?"
@@ -45,11 +45,10 @@ export default function QuestionCard(props) {
       <p style={{ fontWeight: 'bold' }}>{nums_answer} answers ({nums_true}true, {nums_false}false)</p>
 
       <OpenGraphMeta media_url={media_url} media_title={media_title} media_image={media_image} />
-      {visual ? (<>
-        <ContentWrapper>
-          <p >Asked by <b>{username}</b> on {date_created}</p>
 
-        </ContentWrapper></>) : null}
+      <ContentWrapper>
+        <p >Asked by <b>{username}</b> on {date_created}</p>
+      </ContentWrapper>
     </div>
   </Wrapper>
 }

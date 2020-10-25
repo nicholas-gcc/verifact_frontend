@@ -11,7 +11,7 @@ export default function LandingPage(props) {
     <ContentWrapper>
       {list_questionID.map((questionID) =>
         <div style={{ borderBottom: "1px solid #6C718A" }} key={questionID}>
-          <QuestionCard id={questionID} question_id={questionID} visual={true} />
+          <QuestionCard id={questionID} question_id={questionID} />
         </div>
       )}
     </ContentWrapper>

@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { IoMdCloseCircle } from "react-icons/io";
 
-const close = (display, setDisplay) => {
-  setDisplay(!display);
+const close = (isVisible, setIsVisible) => {
+  setIsVisible(!isVisible);
 }
 
 export default function Hero(props) {
-  const [display, setDisplay] = useState(true)
+  const [isVisible, setIsVisible] = useState(true)
   const welcomeTitle = "Your home for verifying credible news"
   const welcomeContent = "Post a question to our community of news sleuths to get answers and new perspectives about the news your reading"
 
-  return <>{display ? (<Wrapper>
+  return <>{isVisible ? (<Wrapper>
     <HeaderWrapper>
-      <Button onClick={() => close(display, setDisplay)}><IoMdCloseCircle style={{ fontSize: '20px' }} /></Button>
+      <Button onClick={() => close(isVisible, setIsVisible)}><IoMdCloseCircle style={{ fontSize: '20px' }} /></Button>
     </HeaderWrapper>
     <ContentWrapper>
       <h1>{welcomeTitle}</h1>

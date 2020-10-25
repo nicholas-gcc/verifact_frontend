@@ -30,14 +30,23 @@ export default function QuestionCard(props) {
   }, [question_id])
 
   return <Wrapper onClick={() => handleClick(history, question_id)} style={{ cursor: 'pointer' }}>
-    <div style={{ paddingLeft: "20px", marginBottom: '15px' }}>
-      <h1 style={{ fontSize: '25px', fontWeight: 'bold' }}>{data.text}</h1>
+    <InnerWrapper >
+      <Title>{data.text}</Title>
       <OpenGraphMeta media_url={data.news_url} media_title={data.news_title} media_image={data.news_image} />
-    </div>
+    </InnerWrapper>
   </Wrapper>
 }
 
 const Wrapper = styled.div`
   display: grid;
   padding-top: 60px;
+`;
+
+const InnerWrapper = styled.div`
+  margin-bottom: 15px;
+`;
+
+const Title = styled.h1`
+  font-size: 25px;
+  font-weight: bold;
 `;

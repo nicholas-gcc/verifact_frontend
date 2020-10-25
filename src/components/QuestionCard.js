@@ -16,7 +16,7 @@ const getQuestionById = (question_id) => {
   return result
 }
 
-const clickhandle = (history, question_id) => {
+const handleClick = (history, question_id) => {
   console.log("enter  ")
   history.push("/question/" + question_id);
 }
@@ -30,7 +30,7 @@ export default function QuestionCard(props) {
     setData(getQuestionById(question_id))
   }, [question_id])
 
-  return <Wrapper onClick={() => clickhandle(history, question_id)} style={{ cursor: 'pointer' }}>
+  return <Wrapper onClick={() => handleClick(history, question_id)} style={{ cursor: 'pointer' }}>
     <div style={{ paddingLeft: "20px", marginBottom: '15px' }}>
       <h1 style={{ fontSize: '25px', fontWeight: 'bold' }}>{data.text}</h1>
       <OpenGraphMeta media_url={data.news_url} media_title={data.news_title} media_image={data.news_image} />

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import OpenGraphMeta from "./OpenGraphMeta"
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 const getQuestionById = (question_id) => {
   /* TODO: Get question data via question ID
@@ -16,25 +17,22 @@ const getQuestionById = (question_id) => {
   return result
 }
 
-const handleClick = (history, question_id) => {
-  history.push("/question/" + question_id);
-}
-
 export default function QuestionCard(props) {
   const [data, setData] = useState({ date_created: "TBC", text: "", news_url: "", news_title: "", news_image: "" })
-  let history = useHistory();
   const { question_id } = props
 
   useEffect(() => {
     setData(getQuestionById(question_id))
   }, [question_id])
 
-  return <Wrapper onClick={() => handleClick(history, question_id)} style={{ cursor: 'pointer' }}>
-    <InnerWrapper >
-      <Title>{data.text}</Title>
-      <OpenGraphMeta media_url={data.news_url} media_title={data.news_title} media_image={data.news_image} />
-    </InnerWrapper>
-  </Wrapper>
+  return <CustomeLink to={'/question/' + question_id}>
+    <Wrapper style={{ cursor: 'pointer' }}>
+      <InnerWrapper >
+        <Title>{data.text}</Title>
+        <OpenGraphMeta media_url={data.news_url} media_title={data.news_title} media_image={data.news_image} />
+      </InnerWrapper>
+    </Wrapper>
+  </CustomeLink>
 }
 
 const Wrapper = styled.div`
@@ -49,4 +47,13 @@ const InnerWrapper = styled.div`
 const Title = styled.h1`
   font-size: 25px;
   font-weight: bold;
+`;
+
+const CustomeLink = styled(Link)`
+  color: black;
+  &:hover{
+    color: black;
+    text-decoration: none;
+
+  }
 `;

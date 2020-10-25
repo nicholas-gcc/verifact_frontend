@@ -28,19 +28,24 @@ const Button = styled.button`
   border: none;
 `;
 
-const ContentWrapper = styled.div`
-  display: grid;
-  justify-items: center;
-  padding-top: 80px;
-  padding-bottom: 118px;
-`;
-
 const HeaderWrapper = styled.div`
   height: 54px;
   text-align: right;
   padding-right: 15px;
   padding-top: 17px;
   padding-bottom: 17px;
+`;
+
+const ContentWrapper = styled.div`
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  padding-top: 80px;
+  padding-bottom: 118px;
+  @media only screen and (max-width: 600px){
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 `;
 
 const Wrapper = styled.div`

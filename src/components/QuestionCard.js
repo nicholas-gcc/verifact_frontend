@@ -10,7 +10,7 @@ const getQuestionById = (question_id) => {
     date_created: "July 1, 2020",
     text: "Is it true that everything happens for a reason?",
     news_url: "https://www.notion.so/Contentforslides28bb12e73c124253b1513f5aa4cb1ec3",
-    news_title: "Is it true that everything happens for a reason? Is it true that everything happens for a reason? Is it true that everything happens for a reason?",
+    news_title: "Is it true that everything happens for a reason? Is it true that everything happens for a reason? Is it true that everything happens for a reason? Is it true that everything happens for a reason?",
     news_image: "https://media.proprofs.com/images/QM/user_images/2503852/1568196428.jpg"
   }
   return result

@@ -16,11 +16,7 @@ export default function OpenGraphMeta(props) {
           <a onClick={event => { event.stopPropagation(); }} href={media_url} >{media_url}</a>
         </ExternalLinkWrapper>
         <div style={{ overflow: "auto" }}>
-          {media_title.length > 108 ? (
-            <>{media_title.slice(0, 130)}...</>
-          ) : (
-              <>{media_title}</>
-            )}
+          {media_title}
         </div>
       </ContentWrapper>
     </Wrapper>

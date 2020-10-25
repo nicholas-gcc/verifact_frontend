@@ -8,7 +8,7 @@ export default function OpenGraphMeta(props) {
   return (
     <Wrapper>
       <div>
-        <Image src={media_image} thumbnail />
+        <CustomeImage src={media_image} thumbnail />
       </div>
       <ContentWrapper style={{ paddingLeft: "10px" }}>
         <ExternalLinkWrapper>
@@ -38,4 +38,8 @@ const ExternalLinkWrapper = styled.div`
   overflow: auto;
   grid-template-columns: 20px auto;
   align-items: center;
+`;
+
+const CustomeImage = styled(Image)`
+border-style: none;
 `;

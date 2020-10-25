@@ -9,8 +9,7 @@ const close = (display, setDisplay) => {
 export default function NotificationCard(props) {
   const [display, setDisplay] = useState(true)
   const welcomeTitle = "Your home for verifying credible news"
-  const welcomeContent = "Post a question to our community of news sleuths to get answers" +
-    "and new perspectives about the news your reading"
+  const welcomeContent = "Post a question to our community of news sleuths to get answers and new perspectives about the news your reading"
 
   return <>{display ? (<Wrapper>
     <HeaderWrapper>

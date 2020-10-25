@@ -22,13 +22,11 @@ export default function NotificationCard(props) {
     </ContentWrapper>
   </Wrapper>) : null}</>
     ;
-
 }
 
 const Button = styled.button`
   background: none;
   border: none;
-  }
 `;
 
 const ContentWrapper = styled.div`
@@ -36,7 +34,6 @@ const ContentWrapper = styled.div`
   justify-items: center;
   padding-top: 80px;
   padding-bottom: 118px;
-  }
 `;
 
 const HeaderWrapper = styled.div`
@@ -45,10 +42,8 @@ const HeaderWrapper = styled.div`
   padding-right: 15px;
   padding-top: 17px;
   padding-bottom: 17px;
-  }
 `;
 
 const Wrapper = styled.div`
   background: #FFB800;
-  }
 `;

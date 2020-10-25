@@ -1,24 +1,24 @@
 import React from "react";
 import styled from "styled-components";
-import {Navbar, Nav, Button} from "react-bootstrap";
+import { Navbar, Nav, Button } from "react-bootstrap";
 
 export default (props) => {
   return <CustomNavbar sticky="top" collapseOnSelect expand="md" >
-      <Navbar.Brand href="/" style={{font:"EB Garamond", fontWeight:'800', fontSize:"19px"}}>SG VERIFACT</Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="mr-auto"></Nav>
-        <Nav  style={{alignItems: 'center'}}>
-          <Nav.Link href="login" style={{color:'black'}}>Log In</Nav.Link>
-          <Nav.Link href="signup" style={{color:'black'}}>
-            Sign Up
+    <Navbar.Brand href="/" style={{ color: "#30323D" }}>SG VERIFACT</Navbar.Brand>
+    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+    <Navbar.Collapse id="responsive-navbar-nav">
+      <Nav className="mr-auto"></Nav>
+      <Nav style={{ alignItems: 'center' }}>
+        <Nav.Link style={{ color: "#30323D" }} href="login">Log In</Nav.Link>
+        <Nav.Link style={{ color: "#30323D" }} href="signup">
+          Sign Up
           </Nav.Link>
-          <Nav.Link href="/askquestion" >
+        <Nav.Link href="/askquestion" >
           <CustomButton >Ask a Question</CustomButton>
-          </Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
-    </CustomNavbar>
+        </Nav.Link>
+      </Nav>
+    </Navbar.Collapse>
+  </CustomNavbar>
 };
 
 const CustomNavbar = styled(Navbar)`
@@ -28,13 +28,12 @@ const CustomNavbar = styled(Navbar)`
   font-family: SF Pro Text;
   font-weight: bold;
   font-size: 14px;
-  color:black;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
 `;
 
 const CustomButton = styled(Button)`
   background: #EEF0F2;
-  color: black;
+  color: #30323D;
   border: none;
   border-radius: 10px;
   padding: 10px 15px;
@@ -44,6 +43,6 @@ const CustomButton = styled(Button)`
 
   :hover{
     background-color: lightgrey;
-    color:black;
+    color: #30323D;
   }
 `;

@@ -57,6 +57,9 @@ const Wrapper = styled.div`
 
 const InnerWrapper = styled.div`
   margin-bottom: 20px;
+  @media only screen and (max-width: 600px){
+    margin-bottom: 0;
+  }
 `;
 
 const Title = styled.h1`
@@ -64,12 +67,18 @@ const Title = styled.h1`
   font-size: 25px;
   font-weight: bold;
   margin-bottom: 20px;
+  @media only screen and (max-width: 600px){
+    margin-bottom: 0;
+  }
 `;
 
 const QuantityText = styled.p`
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 20px;
+  @media only screen and (max-width: 600px){
+    margin-bottom: 0;
+  }
 `;
 
 const Text = styled.p`

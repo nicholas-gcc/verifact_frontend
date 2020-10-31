@@ -4,14 +4,14 @@ import QuestionCard from "../components/QuestionCard";
 import Hero from "../components/Hero";
 
 export default function Home(props) {
-  const list_questionID = ['1', '2']
+  const listQuestionId = ['1', '2']
 
   return <div>
     <Hero />
     <ContentWrapper>
-      {list_questionID.map((questionID) =>
-        <Wrapper key={questionID}>
-          <QuestionCard id={questionID} question_id={questionID} visual={true} />
+      {listQuestionId.map((questionId) =>
+        <Wrapper key={questionId}>
+          <QuestionCard id={questionId} questionId={questionId} visual={true} />
         </Wrapper>
       )}
     </ContentWrapper>

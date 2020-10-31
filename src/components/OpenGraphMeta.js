@@ -10,25 +10,25 @@ const getHostname = (url) => {
 }
 
 export default function OpenGraphMeta(props) {
-  const { media_url, media_title, media_image } = props;
+  const { mediaUrl, mediaTitle, mediaImage } = props;
   const [hostname, setHostname] = useState("")
 
   useEffect(() => {
-    setHostname(getHostname(media_url))
-  }, [media_url, hostname]);
+    setHostname(getHostname(mediaUrl))
+  }, [mediaUrl, hostname]);
 
   return (
     <Wrapper>
       <div>
-        <CustomImage src={media_image} thumbnail />
+        <CustomImage src={mediaImage} thumbnail />
       </div>
       <ContentWrapper>
         <ExternalLinkWrapper>
           <FiArrowUpRight />
-          <CustomLink onClick={event => { event.stopPropagation(); }} href={media_url} >{hostname}</CustomLink>
+          <CustomLink onClick={event => { event.stopPropagation(); }} href={mediaUrl} >{hostname}</CustomLink>
         </ExternalLinkWrapper>
         <TitleWrapper>
-          {media_title}
+          {mediaTitle}
         </TitleWrapper>
       </ContentWrapper>
     </Wrapper>

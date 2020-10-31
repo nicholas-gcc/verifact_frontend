@@ -25,14 +25,14 @@ export default function QuestionCard(props) {
     setData(getQuestionById(question_id))
   }, [question_id])
 
-  return <CustomeLink to={'/question/' + question_id}>
+  return <CustomLink to={'/question/' + question_id}>
     <Wrapper style={{ cursor: 'pointer' }}>
       <InnerWrapper >
         <Title>{data.text}</Title>
         <OpenGraphMeta media_url={data.news_url} media_title={data.news_title} media_image={data.news_image} />
       </InnerWrapper>
     </Wrapper>
-  </CustomeLink>
+  </CustomLink>
 }
 
 const Wrapper = styled.div`
@@ -48,7 +48,7 @@ const Title = styled.h1`
   font-weight: bold;
 `;
 
-const CustomeLink = styled(Link)`
+const CustomLink = styled(Link)`
   color: black;
   &:hover{
     color: black;

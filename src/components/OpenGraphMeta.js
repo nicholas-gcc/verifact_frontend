@@ -25,7 +25,7 @@ export default function OpenGraphMeta(props) {
       <ContentWrapper>
         <ExternalLinkWrapper>
           <FiArrowUpRight />
-          <CustomLink onClick={event => { event.stopPropagation(); }} href={"https://" + hostname} >{hostname}</CustomLink>
+          <CustomLink onClick={event => { event.stopPropagation(); }} href={media_url} >{hostname}</CustomLink>
         </ExternalLinkWrapper>
         <TitleWrapper>
           {media_title}

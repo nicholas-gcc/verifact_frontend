@@ -72,4 +72,5 @@ const CustomLink = styled.a`
 const TitleWrapper = styled.div`
   overflow: auto;
   line-height: 19.09px;
+  color: #30323D;
 `;

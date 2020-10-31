@@ -23,6 +23,7 @@ const ContentWrapper = styled.div`
   padding: 0px 166px;
   @media (max-width:991px) {
     padding: 0px;
+    margin: 0;
   }
 `;
 
@@ -31,5 +32,6 @@ const Wrapper = styled.div`
   padding: 60px 0;
   @media only screen and (max-width: 600px){
     padding: 0;
+    margin: 0;
   }
 `;

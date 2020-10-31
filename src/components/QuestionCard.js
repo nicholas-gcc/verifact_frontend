@@ -17,35 +17,64 @@ const getQuestionById = (questionId) => {
   return result
 }
 
+const getAnswerByQuestionId = (questionId) => {
+  /* TODO: Get question data via question ID
+     Expect return result: dict() */
+  const result = {
+    totalCount: 42,
+    numberOfTrue: 32,
+    numberOfFalse: 10
+  }
+  return result
+}
+
 export default function QuestionCard(props) {
-  const [data, setData] = useState({ dateCreated: "TBC", text: "", newsUrl: "", newsTitle: "", newsImage: "" })
+  const [question, setQuestion] = useState({ dateCreated: "TBC", text: "", newsUrl: "", newsTitle: "", newsImage: "" })
+  const [answer, setAnswer] = useState({ totalCount: 0, numberOfTrue: 0, numberOfFalse: 0 })
   const { questionId } = props
 
   useEffect(() => {
-    setData(getQuestionById(questionId))
+    setQuestion(getQuestionById(questionId))
+    setAnswer(getAnswerByQuestionId(questionId))
   }, [questionId])
 
   return <CustomLink to={'/question/' + questionId}>
-    <Wrapper style={{ cursor: 'pointer' }}>
-      <InnerWrapper >
-        <Title>{data.text}</Title>
-        <OpenGraphMeta mediaUrl={data.newsUrl} mediaTitle={data.newsTitle} mediaImage={data.newsImage} />
+    <Wrapper>
+      <Title>{question.text}</Title>
+      <QuantityText>{answer.totalCount} answer ({answer.numberOfTrue} true, {answer.numberOfFalse} false)</QuantityText>
+      <InnerWrapper>
+        <OpenGraphMeta mediaUrl={question.newsUrl} mediaTitle={question.newsTitle} mediaImage={question.newsImage} />
       </InnerWrapper>
+      <Text>Asked on {question.dateCreated}</Text>
     </Wrapper>
   </CustomLink>
 }
 
 const Wrapper = styled.div`
   display: grid;
+  cursor: pointer;
 `;
 
 const InnerWrapper = styled.div`
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 `;
 
 const Title = styled.h1`
+  color: #30323D;
   font-size: 25px;
   font-weight: bold;
+  margin-bottom: 20px;
+`;
+
+const QuantityText = styled.p`
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 20px;
+`;
+
+const Text = styled.p`
+  color: #30323D;
+  font-size: 14px;
 `;
 
 const CustomLink = styled(Link)`

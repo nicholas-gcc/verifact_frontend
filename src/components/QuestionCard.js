@@ -37,10 +37,6 @@ export default function QuestionCard(props) {
 
 const Wrapper = styled.div`
   display: grid;
-  padding-top: 60px;
-  @media only screen and (max-width: 600px){
-    padding-top: 0;
-  }
 `;
 
 const InnerWrapper = styled.div`
@@ -57,6 +53,5 @@ const CustomeLink = styled(Link)`
   &:hover{
     color: black;
     text-decoration: none;
-
   }
 `;

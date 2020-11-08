@@ -81,11 +81,3 @@ const Text = styled.p`
   color: #30323D;
   font-size: 1.4rem;
 `;
-
-// const CustomLink = styled(Link)`
-//   color: black;
-//   &:hover{
-//     color: black;
-//     text-decoration: none;
-//   }
-// `;

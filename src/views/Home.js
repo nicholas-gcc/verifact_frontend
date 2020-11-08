@@ -20,17 +20,17 @@ export default function Home(props) {
 }
 
 const ContentWrapper = styled.div`
-  padding: 0px 166px;
-  @media (max-width:991px) {
-    padding: 0px;
+  padding: 0 16.6rem;
+  @media (max-width: 767px) {
+    padding: 0 2rem;
     margin: 0;
   }
 `;
 
 const Wrapper = styled.div`
   border-bottom: 1px solid #6C718A;
-  padding: 60px 0;
-  @media only screen and (max-width: 600px){
+  padding: 6rem 0;
+  @media only screen and (max-width: 767px){
     padding: 0;
     margin: 0;
   }

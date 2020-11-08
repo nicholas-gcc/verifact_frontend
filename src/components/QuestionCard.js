@@ -56,34 +56,25 @@ const Wrapper = styled.div`
 `;
 
 const InnerWrapper = styled.div`
-  margin-bottom: 20px;
-  @media only screen and (max-width: 600px){
-    margin-bottom: 0;
-  }
+  margin-bottom: 2rem;
 `;
 
 const Title = styled.h1`
   color: #30323D;
-  font-size: 25px;
+  font-size: 2.1rem;
   font-weight: bold;
-  margin-bottom: 20px;
-  @media only screen and (max-width: 600px){
-    margin-bottom: 0;
-  }
+  margin-bottom: 2rem;
 `;
 
 const QuantityText = styled.p`
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 700;
-  margin-bottom: 20px;
-  @media only screen and (max-width: 600px){
-    margin-bottom: 0;
-  }
+  margin-bottom: 2rem;
 `;
 
 const Text = styled.p`
   color: #30323D;
-  font-size: 14px;
+  font-size: 1.4rem;
 `;
 
 const CustomLink = styled(Link)`

@@ -16,8 +16,8 @@ export default function Hero(props) {
       <Button onClick={() => close(isVisible, setIsVisible)}><IoMdCloseCircle style={{ fontSize: '20px' }} /></Button>
     </HeaderWrapper>
     <ContentWrapper>
-      <h1>{welcomeTitle}</h1>
-      <p>{welcomeContent}</p>
+      <Title>{welcomeTitle}</Title>
+      <BodyText>{welcomeContent}</BodyText>
     </ContentWrapper>
   </Wrapper>) : null}</>
     ;
@@ -29,19 +29,19 @@ const Button = styled.button`
 `;
 
 const HeaderWrapper = styled.div`
-  height: 54px;
+  height: 5.4rem;
   text-align: right;
-  padding-right: 15px;
-  padding-top: 17px;
-  padding-bottom: 17px;
+  padding-right: 1.5rem;
+  padding-top: 1.7rem;
+  padding-bottom: 1.7rem;
 `;
 
 const ContentWrapper = styled.div`
   display: grid;
   justify-items: center;
   text-align: center;
-  padding-top: 80px;
-  padding-bottom: 118px;
+  padding-top: 8rem;
+  padding-bottom: 11.8rem;
   @media only screen and (max-width: 600px){
     padding-top: 0;
     padding-bottom: 0;
@@ -50,4 +50,15 @@ const ContentWrapper = styled.div`
 
 const Wrapper = styled.div`
   background: #FFB800;
+`;
+
+const Title = styled.h1`
+  font-size: 3.2rem;
+  font-style: normal;
+  font-weight: 700;
+`;
+
+const BodyText = styled.p`
+  font-size: 1.4rem;
+  line-height: 3.8rem;
 `;

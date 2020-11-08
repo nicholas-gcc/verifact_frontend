@@ -37,19 +37,18 @@ export default function OpenGraphMeta(props) {
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 100px auto;
+  grid-template-columns: 10rem auto;
 `;
 
 const ContentWrapper = styled.div`
   display: grid;
   grid-template-rows: auto auto;
-  padding-left: 10px;
+  padding-left: 1rem;
 `;
 
 const ExternalLinkWrapper = styled.div`
   display: grid;
-  overflow: auto;
-  grid-template-columns: 20px auto;
+  grid-template-columns: 2rem auto;
   align-items: center;
 `;
 
@@ -57,11 +56,14 @@ const CustomImage = styled(Image)`
   padding: 0;
   border-style: none;
   width: 100%;
-  height: 56.25px;
+  height: 5.625rem;
 `;
 
 const CustomLink = styled.a`
-  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1rem;
   color: #30323D;
   &:hover{
     color: #30323D;
@@ -70,7 +72,7 @@ const CustomLink = styled.a`
 `;
 
 const TitleWrapper = styled.div`
-  overflow: auto;
-  line-height: 19.09px;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
   color: #30323D;
 `;

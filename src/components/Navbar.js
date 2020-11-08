@@ -4,13 +4,13 @@ import { Navbar, Nav, Button } from "react-bootstrap";
 
 export default (props) => {
   return <CustomNavbar sticky="top" collapseOnSelect expand="md" >
-    <Navbar.Brand href="/" style={{ color: "#30323D" }}>SG VERIFACT</Navbar.Brand>
-    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-    <Navbar.Collapse id="responsive-navbar-nav" style={{ backgroundColor: 'white', width: '100px' }}>
-      <Nav className="mr-auto"></Nav>
+    <Navbar.Brand href="/" style={{ color: '#30323D', fontSize: '1.9rem' }}>SG VERIFACT</Navbar.Brand>
+    <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+    <Navbar.Collapse id='responsive-navbar-nav' style={{ backgroundColor: 'white' }}>
+      <Nav className='mr-auto'></Nav>
       <Nav style={{ alignItems: 'center' }}>
-        <Nav.Link style={{ color: "#30323D" }} href="login">Log In</Nav.Link>
-        <Nav.Link style={{ color: "#30323D" }} href="signup">
+        <Nav.Link style={{ color: '#30323D' }} href="login">Log In</Nav.Link>
+        <Nav.Link style={{ color: '#30323D' }} href="signup">
           Sign Up
           </Nav.Link>
         <Nav.Link href="/askquestion" >
@@ -23,23 +23,23 @@ export default (props) => {
 
 const CustomNavbar = styled(Navbar)`
   background-color: white;
-  height: 59px;
-  padding: 0px 30px;
+  height: 5.9rem;
+  padding: 0 2.8rem;
   font-family: SF Pro Text;
   font-weight: bold;
-  font-size: 14px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+  font-size: 1.4rem;
+  box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.08);
 `;
 
 const CustomButton = styled(Button)`
   background-color: #EEF0F2;
   color: #30323D;
   border: none;
-  border-radius: 10px;
-  padding: 10px 15px;
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
   transition-duration: 0.4s;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 1.4rem;
 
   &:hover{
     background-color: lightgrey;

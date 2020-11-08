@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import OpenGraphMeta from "./OpenGraphMeta"
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 
 const getQuestionById = (questionId) => {
@@ -28,17 +28,22 @@ const getAnswerByQuestionId = (questionId) => {
   return result
 }
 
+const handleClick = (history, question_id) => {
+  history.push("/question/" + question_id);
+}
+
 export default function QuestionCard(props) {
   const [question, setQuestion] = useState({ dateCreated: "TBC", text: "", newsUrl: "", newsTitle: "", newsImage: "" })
   const [answer, setAnswer] = useState({ totalCount: 0, numberOfTrue: 0, numberOfFalse: 0 })
   const { questionId } = props
+  let history = useHistory();
 
   useEffect(() => {
     setQuestion(getQuestionById(questionId))
     setAnswer(getAnswerByQuestionId(questionId))
   }, [questionId])
 
-  return <CustomLink to={'/question/' + questionId}>
+  return <div onClick={() => handleClick(history, questionId)} style={{ cursor: 'pointer' }}>
     <Wrapper>
       <Title>{question.text}</Title>
       <QuantityText>{answer.totalCount} answer ({answer.numberOfTrue} true, {answer.numberOfFalse} false)</QuantityText>
@@ -47,7 +52,7 @@ export default function QuestionCard(props) {
       </InnerWrapper>
       <Text>Asked on {question.dateCreated}</Text>
     </Wrapper>
-  </CustomLink>
+  </div>
 }
 
 const Wrapper = styled.div`
@@ -77,10 +82,10 @@ const Text = styled.p`
   font-size: 1.4rem;
 `;
 
-const CustomLink = styled(Link)`
-  color: black;
-  &:hover{
-    color: black;
-    text-decoration: none;
-  }
-`;
+// const CustomLink = styled(Link)`
+//   color: black;
+//   &:hover{
+//     color: black;
+//     text-decoration: none;
+//   }
+// `;

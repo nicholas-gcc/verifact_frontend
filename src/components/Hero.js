@@ -13,7 +13,7 @@ export default function Hero(props) {
 
   return <>{isVisible ? (<Wrapper>
     <HeaderWrapper>
-      <Button onClick={() => close(isVisible, setIsVisible)}><IoMdCloseCircle style={{ fontSize: '20px' }} /></Button>
+      <Button onClick={() => close(isVisible, setIsVisible)}><CustomIoMdCloseCircle /></Button>
     </HeaderWrapper>
     <ContentWrapper>
       <Title>{welcomeTitle}</Title>
@@ -61,4 +61,8 @@ const Title = styled.h1`
 const BodyText = styled.p`
   font-size: 1.4rem;
   line-height: 3.8rem;
+`;
+
+const CustomIoMdCloseCircle = styled(IoMdCloseCircle)`
+  font-size: 2rem;
 `;

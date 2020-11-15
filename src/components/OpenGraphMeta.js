@@ -1,27 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Image } from "react-bootstrap";
-import { FiExternalLink } from "react-icons/fi";
+import { FiArrowUpRight } from "react-icons/fi";
 import styled from "styled-components";
 
+const URL = require('url');
+
+const getHostname = (url) => {
+  return URL.parse(url).hostname;
+}
+
 export default function OpenGraphMeta(props) {
-  const { media_url, media_title, media_image } = props;
+  const { mediaUrl, mediaTitle, mediaImage } = props;
+  const [hostname, setHostname] = useState("")
+
+  useEffect(() => {
+    setHostname(getHostname(mediaUrl))
+  }, [mediaUrl, hostname]);
+
   return (
     <Wrapper>
       <div>
-        <Image src={media_image} thumbnail />
+        <CustomImage src={mediaImage} thumbnail />
       </div>
-      <ContentWrapper style={{ paddingLeft: "10px" }}>
+      <ContentWrapper>
         <ExternalLinkWrapper>
-          <FiExternalLink />
-          <a onClick={event => { event.stopPropagation(); }} href={media_url} >{media_url}</a>
+          <FiArrowUpRight />
+          <CustomLink onClick={event => { event.stopPropagation(); }} href={mediaUrl} >{hostname}</CustomLink>
         </ExternalLinkWrapper>
-        <div style={{ overflow: "auto" }}>
-          {media_title.length > 108 ? (
-            <>{media_title.slice(0, 130)}...</>
-          ) : (
-              <>{media_title}</>
-            )}
-        </div>
+        <TitleWrapper>
+          {mediaTitle}
+        </TitleWrapper>
       </ContentWrapper>
     </Wrapper>
   );
@@ -29,17 +37,42 @@ export default function OpenGraphMeta(props) {
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 150px auto;
+  grid-template-columns: 10rem auto;
 `;
 
 const ContentWrapper = styled.div`
   display: grid;
   grid-template-rows: auto auto;
+  padding-left: 1rem;
 `;
 
 const ExternalLinkWrapper = styled.div`
   display: grid;
-  overflow: auto;
-  grid-template-columns: 20px auto;
+  grid-template-columns: 2rem auto;
   align-items: center;
+`;
+
+const CustomImage = styled(Image)`
+  padding: 0;
+  border-style: none;
+  width: 100%;
+  height: 5.625rem;
+`;
+
+const CustomLink = styled.a`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1rem;
+  color: #30323D;
+  &:hover{
+    color: #30323D;
+    text-decoration: none;
+  }
+`;
+
+const TitleWrapper = styled.div`
+  font-size: 1.6rem;
+  line-height: 1.9rem;
+  color: #30323D;
 `;

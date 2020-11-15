@@ -34,8 +34,7 @@ export default function AnswerCard(props) {
   }, [answer_ids]);
 
   // console.log(data)
-  return <Wrapper>
-
+  return <>
     <h2 style={{ fontWeight: "bold", color: data.answer[1] }}>{data.answer[0]}</h2>
 
     <p >Asked by <b>{data.username}</b> </p>
@@ -65,16 +64,8 @@ export default function AnswerCard(props) {
       </CustomButton>
       </div>
     </ButtonWrapper>
-  </Wrapper>
+  </>
 }
-
-const Wrapper = styled.div`
-  display: grid;
-  background: #EEF0F2;
-  padding: 15px 30px;
-  margin: 30px 0px;
-  border-radius: 20px;
-`;
 
 const MediaWrapper = styled.div`
   min-width: 0;

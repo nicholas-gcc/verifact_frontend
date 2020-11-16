@@ -4,6 +4,7 @@ import { createFragmentContainer } from 'react-relay'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 
+import { monthDayYear } from '../utils/datetime'
 import OpenGraphMeta from './OpenGraphMeta'
 import QuestionCardAnswersCount from './QuestionCardAnswersCount'
 
@@ -48,8 +49,11 @@ function QuestionCard ({ question }) {
     text,
     citationUrl,
     citationTitle,
-    citationImageUrl,
+    citationImageUrl
   } = question
+
+  const dt = new Date(createdAt)
+  const formattedCreatedAt = monthDayYear.format(dt)
 
   // <div onClick={() => handleClick(history)} style={{ cursor: 'pointer' }}>
   return (
@@ -64,7 +68,7 @@ function QuestionCard ({ question }) {
             mediaImage={citationImageUrl}
           />
         </InnerWrapper>
-        <Text>Asked on {createdAt}</Text>
+        <Text>Asked on {formattedCreatedAt}</Text>
       </GridWrap>
     </Wrap>
   )

@@ -4,6 +4,7 @@ import { createFragmentContainer } from 'react-relay'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 
+import { Text } from '../styles'
 import { monthDayYear } from '../utils/datetime'
 import OpenGraphMeta from './OpenGraphMeta'
 import QuestionCardAnswersCount from './QuestionCardAnswersCount'
@@ -18,22 +19,6 @@ const Wrap = styled.div`
     padding: 0;
     margin: 0;
   }
-`
-
-const InnerWrapper = styled.div`
-  margin-bottom: 2rem;
-`
-
-const Title = styled.h1`
-  color: #30323D;
-  font-size: 2.1rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-`
-
-const Text = styled.p`
-  color: #30323D;
-  font-size: 1.4rem;
 `
 
 function QuestionCard ({ question }) {
@@ -52,16 +37,14 @@ function QuestionCard ({ question }) {
 
   return (
     <Wrap onClick={() => history.push(`/question/${id}`)}>
-      <Title>{text}</Title>
+      <Text.H2 children={text} />
       <QuestionCardAnswersCount question={question} />
-      <InnerWrapper>
-        <OpenGraphMeta
-          mediaUrl={citationUrl}
-          mediaTitle={citationTitle}
-          mediaImage={citationImageUrl}
-        />
-      </InnerWrapper>
-      <Text>Asked on {formattedCreatedAt}</Text>
+      <OpenGraphMeta
+        mediaUrl={citationUrl}
+        mediaTitle={citationTitle}
+        mediaImage={citationImageUrl}
+      />
+      <Text.Small children={`Asked on ${formattedCreatedAt}`} />
     </Wrap>
   )
 }

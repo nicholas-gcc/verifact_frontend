@@ -11,16 +11,13 @@ import QuestionCardAnswersCount from './QuestionCardAnswersCount'
 const Wrap = styled.div`
   border-bottom: 1px solid #6C718A;
   padding: 6rem 0;
+  display: grid;
+  cursor: pointer;
 
   @media only screen and (max-width: 767px){
     padding: 0;
     margin: 0;
   }
-`
-
-const GridWrap = styled.div`
-  display: grid;
-  cursor: pointer;
 `
 
 const InnerWrapper = styled.div`
@@ -39,37 +36,32 @@ const Text = styled.p`
   font-size: 1.4rem;
 `
 
-const handleClick = (history, question_id) => {
-  history.push('/question/' + question_id)
-}
-
 function QuestionCard ({ question }) {
+  const history = useHistory()
+
   const {
+    id,
     createdAt,
     text,
     citationUrl,
     citationTitle,
     citationImageUrl
   } = question
-
   const dt = new Date(createdAt)
   const formattedCreatedAt = monthDayYear.format(dt)
 
-  // <div onClick={() => handleClick(history)} style={{ cursor: 'pointer' }}>
   return (
-    <Wrap>
-      <GridWrap>
-        <Title>{text}</Title>
-        <QuestionCardAnswersCount question={question} />
-        <InnerWrapper>
-          <OpenGraphMeta
-            mediaUrl={citationUrl}
-            mediaTitle={citationTitle}
-            mediaImage={citationImageUrl}
-          />
-        </InnerWrapper>
-        <Text>Asked on {formattedCreatedAt}</Text>
-      </GridWrap>
+    <Wrap onClick={() => history.push(`/question/${id}`)}>
+      <Title>{text}</Title>
+      <QuestionCardAnswersCount question={question} />
+      <InnerWrapper>
+        <OpenGraphMeta
+          mediaUrl={citationUrl}
+          mediaTitle={citationTitle}
+          mediaImage={citationImageUrl}
+        />
+      </InnerWrapper>
+      <Text>Asked on {formattedCreatedAt}</Text>
     </Wrap>
   )
 }
@@ -79,6 +71,7 @@ export default createFragmentContainer(
   {
     question: graphql`
       fragment QuestionCard_question on QuestionNode {
+        id
         createdAt
         text
         citationUrl

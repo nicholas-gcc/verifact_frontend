@@ -11,7 +11,7 @@ const query = graphql`
     questions {
       edges {
         node {
-          id
+          ...QuestionCard_question
         }
       }
     }
@@ -27,19 +27,7 @@ const ContentWrapper = styled.div`
   }
 `
 
-const Wrapper = styled.div`
-  border-bottom: 1px solid #6C718A;
-  padding: 6rem 0;
-
-  @media only screen and (max-width: 767px){
-    padding: 0;
-    margin: 0;
-  }
-`
-
 function Home (props) {
-  const listQuestionId = ['1', '2']
-
   return <div>
     <Hero />
     <ContentWrapper>
@@ -51,16 +39,12 @@ function Home (props) {
           } else if (error) {
             return <div>{error.message}</div>
           } else {
-            console.log(props)
-            return <div>rendered!</div>
+            return props.questions.edges.map(({ node }) => {
+              return <QuestionCard key={node.id} question={node} visual />
+            })
           }
         }}
       />
-      {listQuestionId.map((questionId) =>
-        <Wrapper key={questionId}>
-          <QuestionCard id={questionId} questionId={questionId} visual />
-        </Wrapper>
-      )}
     </ContentWrapper>
   </div>
 }

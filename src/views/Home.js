@@ -11,6 +11,7 @@ const query = graphql`
     questions {
       edges {
         node {
+          id
           ...QuestionCard_question
         }
       }

@@ -1,0 +1,108 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type AnswerConnection {
+  pageInfo: PageInfo!
+  edges: [AnswerEdge]!
+}
+
+input AnswerCreateInput {
+  answer: String
+  text: String
+  citationUrl: String
+  citationTitle: String
+  questionId: ID
+  clientMutationId: String
+}
+
+type AnswerCreatePayload {
+  answer: AnswerNode
+  clientMutationId: String
+}
+
+type AnswerEdge {
+  node: AnswerNode
+  cursor: String!
+}
+
+type AnswerNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  answer: String!
+  text: String!
+  citationUrl: String!
+  citationTitle: String!
+  credibleCount: Int!
+  notCredibleCount: Int!
+  question: QuestionNode!
+}
+
+type AnswerNodeConnection {
+  pageInfo: PageInfo!
+  edges: [AnswerNodeEdge]!
+}
+
+type AnswerNodeEdge {
+  node: AnswerNode
+  cursor: String!
+}
+
+scalar DateTime
+
+type Mutation {
+  questionCreate(input: QuestionCreateInput!): QuestionCreatePayload
+  answerCreate(input: AnswerCreateInput!): AnswerCreatePayload
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Query {
+  question(id: ID!): QuestionNode
+  questions(before: String, after: String, first: Int, last: Int): QuestionConnection
+  answer(id: ID!): AnswerNode
+  answers(before: String, after: String, first: Int, last: Int): AnswerConnection
+}
+
+type QuestionConnection {
+  pageInfo: PageInfo!
+  edges: [QuestionEdge]!
+}
+
+input QuestionCreateInput {
+  text: String
+  citationUrl: String
+  citationTitle: String
+  citationImageUrl: String
+  clientMutationId: String
+}
+
+type QuestionCreatePayload {
+  question: QuestionNode
+  clientMutationId: String
+}
+
+type QuestionEdge {
+  node: QuestionNode
+  cursor: String!
+}
+
+type QuestionNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  text: String!
+  citationUrl: String!
+  citationTitle: String!
+  citationImageUrl: String!
+  answers(before: String, after: String, first: Int, last: Int): AnswerNodeConnection!
+}

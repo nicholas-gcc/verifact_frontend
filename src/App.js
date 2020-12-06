@@ -1,9 +1,10 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch } from "react-router-dom";
-import routes from "./routes";
-import Navbars from "./components/Navbar";
+import React from 'react'
+import { BrowserRouter as Router, Switch } from 'react-router-dom'
 
-export default function App(){
+import routes from './routes'
+import Navbars from './components/Navbar'
+
+export default function App () {
   return (
     <Router>
       <Navbars />
@@ -11,6 +12,5 @@ export default function App(){
         <Switch>{routes}</Switch>
       </main>
     </Router>
-  );
+  )
 }
-

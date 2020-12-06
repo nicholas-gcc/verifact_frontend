@@ -1,16 +1,17 @@
-import React from "react";
-import { Button, Form } from "react-bootstrap";
+import React, { useState } from "react";
+import { Form } from "react-bootstrap";
 import styled from "styled-components";
 
-
 export default function SubmitAnswerForm(props) {
+    const { setVisual } = props
+    const { ArticleLink, setArticleLink } = useState("")
+    const { Statement, setStatement } = useState("")
 
     return <Wrapper>
-
-        <CustomForm style={{ padding: '8%' }}>
-            <div>
-                <Title>Answer the Question</Title>
-            </div>
+        <div>
+            <Title>Answer the Question</Title>
+        </div>
+        <CustomForm>
             <div>
                 <Form.Group>
                     <Form.Check
@@ -38,60 +39,108 @@ export default function SubmitAnswerForm(props) {
                 </Form.Group>
             </div>
             <div>
-                <Form.Group controlId="formTextareaExplain">
-                    <Form.Label>Explain your answer</Form.Label>
-                    <Form.Control as="textarea" rows="3" placeholder="For example x, y and z" />
-                </Form.Group>
+                <FormWrapper controlId="formGroupNewsURL" >
+                    <FormLabel>Explain your answer</FormLabel>
+                    <FormInput1 onChange={(e) => setArticleLink(e.target.value)} as="textarea" placeholder="For example x, y and z" required />
+                </FormWrapper>
             </div>
             <div>
-                <Form.Group controlId="formTextareaLink">
-                    <Form.Label>Citation (News URL)</Form.Label>
-                    <Form.Control as="textarea" rows="3" placeholder="https://example.com/article" />
-                </Form.Group>
+                <FormWrapper controlId="formGroupQuestion">
+                    <FormLabel>Citation (News URL)</FormLabel>
+                    <FormInput2 onChange={(e) => setStatement(e.target.value)} type="text" placeholder="https://example.com/article" required />
+                </FormWrapper>
             </div>
+
             <ButtonWrapper>
-                <ButtonStyled variant="light" type="submit" >
+                <CustomButton type="button" onClick={() => setVisual(false)}>
                     Cancle
-                </ButtonStyled>
-                <ButtonStyled variant="light" type="submit">
+                </CustomButton>
+                {/* <CustomButton type="submit">
                     Add Citation
-                </ButtonStyled>
-                <Button variant="warning" type="submit">
+                </CustomButton> */}
+                <SubmitButton type="submit">
                     Submit Answer
-                </Button>
+                </SubmitButton>
             </ButtonWrapper>
         </CustomForm>
     </Wrapper>
 }
 
+const Wrapper = styled.div`
+    background: #EEF0F2;
+    width: 55rem;
+    border-radius: 2.5rem;
+    display: grid;
+    row-gap: 3rem;
+    padding: 5rem;
+`;
+
+const CustomForm = styled(Form)`
+    display: grid;
+    row-gap: 3rem;
+`;
+
 const Title = styled.h1`
     font-family: SF Pro Display;
     font-style: normal;
     font-weight: bold;
-    font-size: 32px;
-    line-height: 38px;
+    font-size: 3.2rem;
+    line-height: 3.8rem;
 `;
 
-const ButtonStyled = styled(Button)`
+const CustomButton = styled.button`
     background: none;
+    border-radius: 1rem;
     border-style: none;
+    height: 3.9rem;
+
+    font-family: SF Pro Text;
+    font-size: 1.4rem;
+
+    font-weight: 700;
+    line-height: 1.7rem;
+    letter-spacing: 0;
 `;
 
-const Wrapper = styled.div`
-    background: #EEF0F2;
-    width:60%;
-    border-radius: 25px;
+const SubmitButton = styled.button`
+    background: #FFB800;
+    border-radius: 1rem;
+    border-style: none;
+    height: 3.9rem;
+
+    font-family: SF Pro Text;
+    font-size: 1.4rem;
+
+    font-weight: 700;
+    line-height: 1.7rem;
+    letter-spacing: 0;
+    padding: 1rem 1.5rem;
 `;
 
 const ButtonWrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(3,auto);
-    column-gap: 10px;
+    column-gap: 1rem;
     justify-content: end; 
 `;
 
-const CustomForm = styled(Form)`
-    padding: '8%';
-    display: grid;
-    row-gap: 30px;
+const FormWrapper = styled.div`
+  display: grid;
+  grid-template-rows: auto;
+`;
+
+const FormLabel = styled.h1`
+  font-weight: bold;
+  font-size: 1.6rem;
+  font-family: Open Sans;
+  margin-bottom: .5rem;
+`;
+
+const FormInput1 = styled.input`
+  height: 12.8rem;
+  font-family: Open Sans;
+`;
+
+const FormInput2 = styled.input`
+  height: 5rem;
 `;

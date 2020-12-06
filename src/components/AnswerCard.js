@@ -34,12 +34,16 @@ export default function AnswerCard(props) {
   }, [answer_ids]);
 
   // console.log(data)
-  return <>
-    <h2 style={{ fontWeight: "bold", color: data.answer[1] }}>{data.answer[0]}</h2>
-
-    <p >Asked by <b>{data.username}</b> </p>
-    <p>{data.text}</p>
-
+  return <Container>
+    <div>
+      <Answer style={{ fontWeight: "bold", color: data.answer[1] }}>{data.answer[0]}</Answer>
+    </div>
+    <div>
+      <User>Asked by <b>{data.username}</b> </User>
+    </div>
+    <div>
+      <Explain>{data.text}</Explain>
+    </div>
     <MediaWrapper>
       <div>
         <FiExternalLink />
@@ -54,29 +58,54 @@ export default function AnswerCard(props) {
 
     <ButtonWrapper>
       <div>
-        <CustomButton style={{ background: "#23BE7B" }}>
+        <VoteButton style={{ background: "#23BE7B" }}>
           {data.credible_count} Credible
-      </CustomButton>
+      </VoteButton>
       </div>
       <div>
-        <CustomButton style={{ background: "#E55934" }}>
+        <VoteButton style={{ background: "#E55934" }}>
           {data.not_credible_count} Not Credible
-      </CustomButton>
+      </VoteButton>
       </div>
     </ButtonWrapper>
-  </>
+  </Container>
 }
+
+const Container = styled.div`
+  display: grid;
+  grid-template-rows: auto;
+  grid-row-gap: 1rem;
+`;
+
+
+const Answer = styled.h2`
+  font-family: SF Pro Display;
+  font-size: 2.1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 2.5rem;
+  letter-spacing: 0rem;
+  margin: 0;
+`;
+
+const User = styled.p`
+  margin: 0;
+`;
+
+const Explain = styled.p`
+  margin: 0;
+`;
 
 const MediaWrapper = styled.div`
   min-width: 0;
   display: flex;
   align-items: center; 
-  margin-bottom: 15px;
+  margin-bottom: 1.5rem;
 `;
 
 const MediaTitleWrapper = styled.div`
   min-width: 0;
-  padding: 0 10px;
+  padding: 0 1rem;
 `;
 
 const MediaTitle = styled.p`
@@ -86,8 +115,8 @@ const MediaTitle = styled.p`
   white-space: nowrap;
 `;
 
-const CustomButton = styled.button`
-  border-radius: 5px;
+const VoteButton = styled.button`
+  border-radius: .5rem;
   border-style: none;
   width: 100%;
   color: white;
@@ -95,6 +124,6 @@ const CustomButton = styled.button`
 
 const ButtonWrapper = styled.div`
   display: grid;
-  grid-template-columns: 130px 130px;
-  gap: 10px;
+  grid-template-columns: 13rem 13rem;
+  gap: 1rem;
 `;

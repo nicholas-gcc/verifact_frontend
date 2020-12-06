@@ -21,7 +21,7 @@ const Wrap = styled.div`
   }
 `
 
-function QuestionCard ({ question }) {
+function QuestionCard({ question }) {
   const history = useHistory()
 
   const {

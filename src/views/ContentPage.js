@@ -1,52 +1,88 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Container, Button } from "react-bootstrap";
 import styled from "styled-components";
+import graphql from 'babel-plugin-relay/macro'
+
+import Query from '../components/Query'
 import QuestionCard from "../components/QuestionCard";
 import AnswerCard from "../components/AnswerCard";
 import SubmitAnswerForm from "../components/SubmitAnswerForm";
 
-const getAllAnswersIdByQuestionId = (question_id) => {
-  /* TODO get AnswerId tho API, 
-  Expected return from API, Eg. [1,23,38,98] */
-  return [1, 23, 38, 98]
-}
+
+// const getAllAnswersIdByQuestionId = (question_id) => {
+//   /* TODO get AnswerId tho API, 
+//   Expected return from API, Eg. [1,23,38,98] */
+//   return [1, 23, 38, 98]
+// }
 
 export default function ContentPage(props) {
   const question_id = props.match.params.id;
-  const [answersId, setAnswersId] = useState([])
-  const [visual, setVisual] = useState(false)
 
-  useEffect(() => {
-    setAnswersId(getAllAnswersIdByQuestionId(question_id))
-  }, [question_id]);
+  const [visual, setVisual] = useState(false)
+  console.log(question_id)
+  const query = graphql`
+  query ContentPageQuery ($question_id: ID!){
+    question(id: $question_id) {
+      id
+      ...QuestionCard_question
+      answers {
+        edges {
+          node {
+            id
+            createdAt
+            answer
+            text
+            citationUrl
+            citationTitle
+            credibleCount
+            notCredibleCount
+          }
+        }
+      }
+    }
+  }
+  `
 
   const handleOnClick = () => {
     console.log(visual)
     setVisual(!visual)
   }
 
-  return <Wrapper>
-    <QuestionCard question_id={question_id} />
-    <ContentWrapper>
-      {visual ?
-        (<div>
-          <HeaderWrapper1>
-            <FormWrapper >
-              <SubmitAnswerForm />
-            </FormWrapper>
-            <Title >All Answer</Title>
-          </HeaderWrapper1>
-          {answersId.map((answer_id, i) => { return <AnswerCard key={answer_id} answer_id={answer_id} visual={false} /> })}
-        </div>) :
-        (<div>
-          <HeaderWrapper2>
-            <Title >All Answer</Title>
-            <CustomButton onClick={handleOnClick}>Answer the Question</CustomButton>
-          </HeaderWrapper2>
-          {answersId.map((answer_id) => { return <AnswerWrapper><AnswerCard key={answer_id} answer_id={answer_id} visual={false} /></AnswerWrapper> })}
-        </div>)}
-    </ContentWrapper>
-  </Wrapper>;
+  return <Query
+    query={query}
+    variables={{ question_id }}
+    render={({ error, props }) => {
+      if (!props) {
+        return <div>Loading...</div>
+      } else if (error) {
+        return <div>{error.message}</div>
+      } else {
+        console.log(props.question)
+        return <Wrapper>
+          <QuestionCard key={question_id} question={props.question} visual />
+          <ContentWrapper>
+            {visual ?
+              (<div>
+                <HeaderWrapper1>
+                  <FormWrapper >
+                    <SubmitAnswerForm setVisual={setVisual} />
+                  </FormWrapper>
+                  <Title >All Answer</Title>
+                </HeaderWrapper1>
+                {props.question.answers.edges.map((node, i) => { return <AnswerWrapper><AnswerCard key={node.id} answer_id={node.id} visual={false} /> </AnswerWrapper> })}
+              </div>) :
+              (<div>
+                <HeaderWrapper2>
+                  <Title >All Answer</Title>
+                  <CustomButton onClick={handleOnClick}>Answer the Question</CustomButton>
+                </HeaderWrapper2>
+                {props.question.answers.edges.map((node) => { return <AnswerWrapper><AnswerCard key={node.id} answer_id={node.id} visual={false} /></AnswerWrapper> })}
+              </div>)}
+          </ContentWrapper>
+        </Wrapper>
+      }
+    }}
+  />
 }
 
 const Wrapper = styled(Container)`
@@ -105,7 +141,7 @@ const CustomButton = styled(Button)`
 const AnswerWrapper = styled.div`
   display: grid;
   background: #EEF0F2;
-  padding: 15px 30px;
-  margin: 30px 0px;
-  border-radius: 20px;
+  padding: 1.5rem 3rem;
+  margin: 3rem 0;
+  border-radius: 2rem;
 `;

@@ -2,24 +2,25 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { IoMdCloseCircle } from "react-icons/io";
 
-const close = (isVisible, setIsVisible) => {
-  setIsVisible(!isVisible);
+const close = (isClosed, setIsClosed) => {
+  localStorage.setItem('verifactHeroClosed', true);
+  setIsClosed(!isClosed);
 }
 
 export default function Hero(props) {
-  const [isVisible, setIsVisible] = useState(true)
+  const [isClosed, setIsClosed] = useState(localStorage.getItem('verifactHeroClosed') === 'true')
   const welcomeTitle = "Your home for verifying credible news"
   const welcomeContent = "Post a question to our community of news sleuths to get answers and new perspectives about the news your reading"
 
-  return <>{isVisible ? (<Wrapper>
+  return <>{isClosed ? null : (<Wrapper>
     <HeaderWrapper>
-      <Button onClick={() => close(isVisible, setIsVisible)}><CustomIoMdCloseCircle /></Button>
+      <Button onClick={() => close(isClosed, setIsClosed)}><CustomIoMdCloseCircle /></Button>
     </HeaderWrapper>
     <ContentWrapper>
       <Title>{welcomeTitle}</Title>
       <BodyText>{welcomeContent}</BodyText>
     </ContentWrapper>
-  </Wrapper>) : null}</>
+  </Wrapper>)}</>
     ;
 }
 

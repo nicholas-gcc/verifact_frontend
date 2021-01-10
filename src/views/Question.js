@@ -25,7 +25,7 @@ const query = graphql`
   }
 `
 
-export default function ContentPage(props) {
+export default function Question(props) {
   const question_id = props.match.params.id;
   const [showAnswerForm, setShowAnswerForm] = useState(false)
 

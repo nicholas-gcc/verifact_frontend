@@ -19,9 +19,12 @@ const Wrap = styled.div`
     padding: 0;
     margin: 0;
   }
+  ${({ disableBtmBorader }) => disableBtmBorader && `
+    border-bottom: 0;
+  `}
 `
 
-function QuestionCard({ question }) {
+function QuestionCard({ question, disableBtmBorader }) {
   const history = useHistory()
 
   const {
@@ -36,7 +39,7 @@ function QuestionCard({ question }) {
   const formattedCreatedAt = monthDayYear.format(dt)
 
   return (
-    <Wrap onClick={() => history.push(`/question/${id}`)}>
+    <Wrap disableBtmBorader={disableBtmBorader} onClick={() => history.push(`/question/${id}`)}>
       <Text.H2 children={text} />
       <QuestionCardAnswersCount question={question} />
       <OpenGraphMeta

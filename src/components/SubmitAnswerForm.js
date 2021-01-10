@@ -1,18 +1,49 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import styled from "styled-components";
+import { graphql } from 'babel-plugin-relay/macro'
+import { commitMutation } from 'react-relay'
+
+import environment from '../config/relay'
+
+const mutation = graphql`
+    mutation SubmitAnswerFormMutation($input: AnswerCreateInput!){
+        answerCreate(input: $input){
+            answer{
+                id
+                answer
+            }
+        }
+    }`
 
 export default function SubmitAnswerForm(props) {
-    const { setVisual } = props
-    const { ArticleLink, setArticleLink } = useState("")
-    const { Statement, setStatement } = useState("")
+    const { setVisual, questionID } = props;
+    const [answer, setAnswer] = useState("True");
+    const [articleLink, setArticleLink] = useState("");
+    const [statement, setStatement] = useState("");
 
-    return <Wrapper>
-        <div>
+    const handleSubmit = () => {
+        const variables = {
+            "input": {
+                "answer": answer,
+                "text": statement,
+                "citationUrl": articleLink,
+                "citationTitle": "Hello world ctitle2",
+                "questionId": questionID
+            }
+        }
+        commitMutation(environment, {
+            mutation, variables
+        },
+        );
+    }
+
+    return <MainWrapper>
+        <>
             <Title>Answer the Question</Title>
-        </div>
-        <CustomForm>
-            <div>
+        </>
+        <CustomForm id="answerForm" onSubmit={handleSubmit}>
+            <FormWrapper>
                 <Form.Group>
                     <Form.Check
                         defaultChecked
@@ -21,6 +52,7 @@ export default function SubmitAnswerForm(props) {
                         label="True"
                         name="formHorizontalRadios"
                         id="formHorizontalRadios1"
+                        onClick={() => setAnswer("True")}
                     />
                     <Form.Check
                         inline
@@ -28,6 +60,7 @@ export default function SubmitAnswerForm(props) {
                         label="False"
                         name="formHorizontalRadios"
                         id="formHorizontalRadios2"
+                        onClick={() => setAnswer("False")}
                     />
                     <Form.Check
                         inline
@@ -35,50 +68,43 @@ export default function SubmitAnswerForm(props) {
                         label="Uncertain"
                         name="formHorizontalRadios"
                         id="formHorizontalRadios3"
+                        onClick={() => setAnswer("Uncertain")}
                     />
                 </Form.Group>
-            </div>
-            <div>
-                <FormWrapper controlId="formGroupNewsURL" >
-                    <FormLabel>Explain your answer</FormLabel>
-                    <FormInput1 onChange={(e) => setArticleLink(e.target.value)} as="textarea" placeholder="For example x, y and z" required />
-                </FormWrapper>
-            </div>
-            <div>
-                <FormWrapper controlId="formGroupQuestion">
-                    <FormLabel>Citation (News URL)</FormLabel>
-                    <FormInput2 onChange={(e) => setStatement(e.target.value)} type="text" placeholder="https://example.com/article" required />
-                </FormWrapper>
-            </div>
-
+            </FormWrapper>
+            <FormWrapper>
+                <FormLabel>Explain your answer</FormLabel>
+                <FormInput height={'height: 12.8rem;'} onChange={(e) => setStatement(e.target.value)} as="textarea" placeholder="For example x, y and z" required />
+            </FormWrapper>
+            <FormWrapper>
+                <FormLabel>Citation (News URL)</FormLabel>
+                <FormInput height={'height: 5rem;'} onChange={(e) => setArticleLink(e.target.value)} type="text" placeholder="https://example.com/article" required />
+            </FormWrapper>
             <ButtonWrapper>
-                <CustomButton type="button" onClick={() => setVisual(false)}>
+                <Button background={'background: none;'} type="button" onClick={() => setVisual(false)}>
                     Cancle
-                </CustomButton>
-                {/* <CustomButton type="submit">
-                    Add Citation
-                </CustomButton> */}
-                <SubmitButton type="submit">
+                </Button>
+                <Button background={'background: #FFB800;'} type="submit" form="answerForm">
                     Submit Answer
-                </SubmitButton>
+                </Button>
             </ButtonWrapper>
         </CustomForm>
-    </Wrapper>
+    </MainWrapper>
 }
 
-const Wrapper = styled.div`
-    background: #EEF0F2;
-    width: 55rem;
-    border-radius: 2.5rem;
+const MainWrapper = styled.div`
     display: grid;
+    width: 55rem;
     row-gap: 3rem;
     padding: 5rem;
-`;
+    background: #EEF0F2;
+    border-radius: 2rem;
+`
 
 const CustomForm = styled(Form)`
     display: grid;
     row-gap: 3rem;
-`;
+`
 
 const Title = styled.h1`
     font-family: SF Pro Display;
@@ -86,9 +112,16 @@ const Title = styled.h1`
     font-weight: bold;
     font-size: 3.2rem;
     line-height: 3.8rem;
-`;
+`
 
-const CustomButton = styled.button`
+const ButtonWrapper = styled.div`
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    column-gap: 1rem;
+    justify-content: end; 
+`
+
+const Button = styled.button`
     background: none;
     border-radius: 1rem;
     border-style: none;
@@ -100,47 +133,24 @@ const CustomButton = styled.button`
     font-weight: 700;
     line-height: 1.7rem;
     letter-spacing: 0;
-`;
-
-const SubmitButton = styled.button`
-    background: #FFB800;
-    border-radius: 1rem;
-    border-style: none;
-    height: 3.9rem;
-
-    font-family: SF Pro Text;
-    font-size: 1.4rem;
-
-    font-weight: 700;
-    line-height: 1.7rem;
-    letter-spacing: 0;
     padding: 1rem 1.5rem;
-`;
 
-const ButtonWrapper = styled.div`
-    display: grid;
-    grid-template-columns: repeat(3,auto);
-    column-gap: 1rem;
-    justify-content: end; 
-`;
+    ${({ background }) => background}
+`
 
 const FormWrapper = styled.div`
   display: grid;
-  grid-template-rows: auto;
-`;
+`
 
 const FormLabel = styled.h1`
-  font-weight: bold;
+  font-weight: 600;
   font-size: 1.6rem;
   font-family: Open Sans;
-  margin-bottom: .5rem;
-`;
+`
 
-const FormInput1 = styled.input`
-  height: 12.8rem;
+const FormInput = styled.input`
   font-family: Open Sans;
-`;
+  border-radius: 1rem;
 
-const FormInput2 = styled.input`
-  height: 5rem;
-`;
+  ${({ height }) => height}
+`

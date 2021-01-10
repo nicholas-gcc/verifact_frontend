@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import styled from "styled-components";
 import graphql from 'babel-plugin-relay/macro'
 
@@ -8,19 +8,7 @@ import QuestionCard from "../components/QuestionCard";
 import AnswerCard from "../components/AnswerCard";
 import SubmitAnswerForm from "../components/SubmitAnswerForm";
 
-
-// const getAllAnswersIdByQuestionId = (question_id) => {
-//   /* TODO get AnswerId tho API, 
-//   Expected return from API, Eg. [1,23,38,98] */
-//   return [1, 23, 38, 98]
-// }
-
-export default function ContentPage(props) {
-  const question_id = props.match.params.id;
-
-  const [visual, setVisual] = useState(false)
-  console.log(question_id)
-  const query = graphql`
+const query = graphql`
   query ContentPageQuery ($question_id: ID!){
     question(id: $question_id) {
       id
@@ -29,24 +17,17 @@ export default function ContentPage(props) {
         edges {
           node {
             id
-            createdAt
-            answer
-            text
-            citationUrl
-            citationTitle
-            credibleCount
-            notCredibleCount
+            ...AnswerCard_answer
           }
         }
       }
     }
   }
-  `
+`
 
-  const handleOnClick = () => {
-    console.log(visual)
-    setVisual(!visual)
-  }
+export default function ContentPage(props) {
+  const question_id = props.match.params.id;
+  const [showAnswerForm, setShowAnswerForm] = useState(false)
 
   return <Query
     query={query}
@@ -57,68 +38,58 @@ export default function ContentPage(props) {
       } else if (error) {
         return <div>{error.message}</div>
       } else {
-        console.log(props.question)
         return <Wrapper>
-          <QuestionCard key={question_id} question={props.question} visual />
-          <ContentWrapper>
-            {visual ?
-              (<div>
-                <HeaderWrapper1>
-                  <FormWrapper >
-                    <SubmitAnswerForm setVisual={setVisual} />
-                  </FormWrapper>
-                  <Title >All Answer</Title>
-                </HeaderWrapper1>
-                {props.question.answers.edges.map((node, i) => { return <AnswerWrapper><AnswerCard key={node.id} answer_id={node.id} visual={false} /> </AnswerWrapper> })}
-              </div>) :
-              (<div>
-                <HeaderWrapper2>
-                  <Title >All Answer</Title>
-                  <CustomButton onClick={handleOnClick}>Answer the Question</CustomButton>
-                </HeaderWrapper2>
-                {props.question.answers.edges.map((node) => { return <AnswerWrapper><AnswerCard key={node.id} answer_id={node.id} visual={false} /></AnswerWrapper> })}
-              </div>)}
-          </ContentWrapper>
+          <QuestionCard key={question_id} question={props.question} disableBtmBorader={true} visual />
+          <HeaderWrapper enableForm={showAnswerForm}>
+            {showAnswerForm ?
+              (<>
+                <FormWrapper >
+                  <SubmitAnswerForm setVisual={() => setShowAnswerForm(false)} questionID={question_id} />
+                </FormWrapper>
+                <Title >All Answer</Title>
+              </>) :
+              (<>
+                <Title >All Answer</Title>
+                <CustomButton onClick={() => setShowAnswerForm(true)}>Answer the Question</CustomButton>
+              </>)}
+          </HeaderWrapper>
+          {props.question.answers.edges.map(({ node }) => { return <AnswerWrapper><AnswerCard key={node.id} answer={node} visual={false} /></AnswerWrapper> })}
         </Wrapper>
       }
     }}
   />
 }
 
-const Wrapper = styled(Container)`
-  display: grid;
-  padding: 20px 0px;
-`;
+const Wrapper = styled.div`
+  padding: 0 16.6rem;
 
-const HeaderWrapper1 = styled.div`
+  @media (max-width: 767px) {
+    padding: 0 2rem;
+    margin: 0;
+  }
+`
+
+const HeaderWrapper = styled.div`
   display: grid;
-  margin-top: 6rem;
   margin-bottom: 3rem;
   grid-template-rows: auto auto;
-`;
 
-const HeaderWrapper2 = styled.div`
-  display: grid;
-  margin-top: 6rem;
-  margin-bottom: 3rem;
-  grid-template-columns: auto auto;
-`;
+  ${({ enableForm }) => enableForm ? null : `
+    grid-template-columns: auto auto;
+  `}
+`
 
 const FormWrapper = styled.div`
   display: grid;
   justify-items: center;
   margin-bottom: 6rem;
-`;
-
-const ContentWrapper = styled.div`
-  display: grid;
-`;
+`
 
 const Title = styled.h1`
-  font-weight: bold;
   font-size: 3.2rem;
-  margin: 0;
-`;
+  font-style: normal;
+  font-weight: 700;
+`
 
 const CustomButton = styled(Button)`
   background-color: #FFB800;
@@ -136,7 +107,7 @@ const CustomButton = styled(Button)`
     background-color: #FFB800;
     color: #30323D;
   }
-`;
+`
 
 const AnswerWrapper = styled.div`
   display: grid;
@@ -144,4 +115,6 @@ const AnswerWrapper = styled.div`
   padding: 1.5rem 3rem;
   margin: 3rem 0;
   border-radius: 2rem;
-`;
+  word-wrap: break-word;
+  word-break: break-all;
+`

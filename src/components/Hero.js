@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { IoMdCloseCircle } from "react-icons/io";
 
+import { setLocalData, getLocalData } from "../utils/localdata"
+
 export default function Hero(props) {
-  const verifactHeroClosed = JSON.parse(localStorage.getItem('verifactHeroClosed')) ? true : false;
-  const [isClosed, setIsClosed] = useState(verifactHeroClosed)
+  const [isClosed, setIsClosed] = useState(getLocalData('verifactHeroClosed'))
   const welcomeTitle = "Your home for verifying credible news"
   const welcomeContent = "Post a question to our community of news sleuths to get answers and new perspectives about the news your reading"
 
   const close = () => {
-    localStorage.setItem('verifactHeroClosed', 'true');
-    setIsClosed(!isClosed);
+    setLocalData('verifactHeroClosed', 'true')
+    setIsClosed(true);
   }
 
   return <>{isClosed ? null : (<Wrapper>

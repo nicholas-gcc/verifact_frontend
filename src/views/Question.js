@@ -9,7 +9,7 @@ import AnswerCard from "../components/AnswerCard";
 import SubmitAnswerForm from "../components/SubmitAnswerForm";
 
 const query = graphql`
-  query ContentPageQuery ($question_id: ID!){
+  query QuestionQuery ($question_id: ID!){
     question(id: $question_id) {
       id
       ...QuestionCard_question

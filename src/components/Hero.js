@@ -10,7 +10,7 @@ export default function Hero(props) {
   const welcomeContent = "Post a question to our community of news sleuths to get answers and new perspectives about the news your reading"
 
   const close = () => {
-    setLocalData('verifactHeroClosed', 'true')
+    setLocalData('verifactHeroClosed', true)
     setIsClosed(true);
   }
 

@@ -5,21 +5,15 @@ import graphql from 'babel-plugin-relay/macro'
 
 import Query from '../components/Query'
 import QuestionCard from "../components/QuestionCard";
-import AnswerCard from "../components/AnswerCard";
 import SubmitAnswerForm from "../components/SubmitAnswerForm";
+import AnswerCard from "../components/AnswerCard";
 
 const query = graphql`
   query QuestionQuery ($question_id: ID!){
-    question(id: $question_id) {
-      id
+    node(id: $question_id) {
       ...QuestionCard_question
-      answers {
-        edges {
-          node {
-            id
-            ...AnswerCard_answer
-          }
-        }
+      ...on QuestionNode {
+        answers { edges { node { id ...AnswerCard_answer}}}
       }
     }
   }
@@ -39,7 +33,7 @@ export default function Question(props) {
         return <div>{error.message}</div>
       } else {
         return <Wrapper>
-          <QuestionCard key={question_id} question={props.question} disableBtmBorader={true} visual />
+          <QuestionCard key={question_id} question={props.node} disableBtmBorader={true} visual />
           <HeaderWrapper enableForm={showAnswerForm}>
             {showAnswerForm ?
               (<>
@@ -53,7 +47,7 @@ export default function Question(props) {
                 <CustomButton onClick={() => setShowAnswerForm(true)}>Answer the Question</CustomButton>
               </>)}
           </HeaderWrapper>
-          {props.question.answers.edges.map(({ node }) => { return <AnswerWrapper><AnswerCard key={node.id} answer={node} visual={false} /></AnswerWrapper> })}
+          {props.node.answers.edges.map(({ node }) => { return <AnswerWrapper key={node.id} ><AnswerCard answer={node} visual={false} /></AnswerWrapper> })}
         </Wrapper>
       }
     }}

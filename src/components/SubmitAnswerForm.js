@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import styled from "styled-components";
 import { graphql } from 'babel-plugin-relay/macro'
-import { commitMutation } from 'react-relay'
+import { useHistory } from 'react-router-dom'
 
-import environment from '../config/relay'
+import mutate from '../utils/mutate'
 
 const mutation = graphql`
     mutation SubmitAnswerFormMutation($input: AnswerCreateInput!){
@@ -17,6 +17,8 @@ const mutation = graphql`
     }`
 
 export default function SubmitAnswerForm(props) {
+    const history = useHistory();
+
     const { setVisual, questionID } = props;
     const [answer, setAnswer] = useState("True");
     const [articleLink, setArticleLink] = useState("");
@@ -32,10 +34,9 @@ export default function SubmitAnswerForm(props) {
                 "questionId": questionID
             }
         }
-        commitMutation(environment, {
-            mutation, variables
-        },
-        );
+        mutate(mutation, variables)
+            .then(() => { history.push('/login') })
+            .catch(err => console.log(err[0].message))
     }
 
     return <MainWrapper>

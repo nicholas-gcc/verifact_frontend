@@ -7,7 +7,8 @@ import { createFragmentContainer } from 'react-relay'
 import { Text } from '../styles'
 
 function AnswerCard(props) {
-  const { answer,
+  const { id,
+    answer,
     text,
     citationUrl,
     citationTitle,
@@ -15,7 +16,7 @@ function AnswerCard(props) {
     notCredibleCount } = props.answer
   const setColor = (answer === 'True') ? true : false;
 
-  return <>
+  return <div key={id}>
     <>
       <AnswerHeader children={answer} setColor={setColor} />
     </>
@@ -38,7 +39,7 @@ function AnswerCard(props) {
         {notCredibleCount} Not Credible
       </VoteButton>
     </ButtonWrapper>
-  </>
+  </div>
 }
 
 const AnswerHeader = styled(Text.H2)`
@@ -82,6 +83,7 @@ const ButtonWrapper = styled.div`
 
 const VoteButton = styled.button`
   border-radius: .5rem;
+  padding: 0.3rem 0.9rem;
   border-style: none;
   width: 100%;
   color: white;
@@ -94,6 +96,7 @@ export default createFragmentContainer(
   {
     answer: graphql`
       fragment AnswerCard_answer on AnswerNode {
+        id
         answer
         text
         citationUrl

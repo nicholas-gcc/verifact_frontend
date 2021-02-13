@@ -44,35 +44,52 @@ export default function SubmitAnswerForm(props) {
             <Title>Answer the Question</Title>
         </>
         <CustomForm id="answerForm" onSubmit={handleSubmit}>
-            <FormWrapper>
-                <Form.Group>
-                    <Form.Check
-                        defaultChecked
-                        inline
-                        type="radio"
-                        label="True"
-                        name="formHorizontalRadios"
-                        id="formHorizontalRadios1"
-                        onClick={() => setAnswer("True")}
-                    />
-                    <Form.Check
-                        inline
-                        type="radio"
-                        label="False"
-                        name="formHorizontalRadios"
-                        id="formHorizontalRadios2"
-                        onClick={() => setAnswer("False")}
-                    />
-                    <Form.Check
-                        inline
-                        type="radio"
-                        label="Uncertain"
-                        name="formHorizontalRadios"
-                        id="formHorizontalRadios3"
-                        onClick={() => setAnswer("Uncertain")}
-                    />
-                </Form.Group>
-            </FormWrapper>
+            <Group>
+                <TDIV>
+                    <div>
+                        <Input
+                            defaultChecked
+                            inline
+                            type="radio"
+                            name="formHorizontalRadios"
+                            id="formHorizontalRadios1"
+                            onClick={() => setAnswer("True")}
+                        />
+                    </div>
+                    <div>
+                        <label>True</label>
+                    </div>
+                </TDIV>
+                <TDIV>
+                    <div>
+                        <Input
+                            inline
+                            type="radio"
+                            name="formHorizontalRadios"
+                            id="formHorizontalRadios2"
+                            onClick={() => setAnswer("False")}
+                        />
+                    </div>
+                    <div>
+                        <label>False</label>
+                    </div>
+                </TDIV>
+                <TDIV>
+                    <div>
+                        <Input
+                            inline
+                            type="radio"
+                            name="formHorizontalRadios"
+                            id="formHorizontalRadios3"
+                            onClick={() => setAnswer("Uncertain")}
+                        />
+                    </div>
+                    <div>
+                        <label>Uncertain</label>
+                    </div>
+                </TDIV>
+            </Group>
+
             <FormWrapper>
                 <FormLabel>Explain your answer</FormLabel>
                 <FormInput height={'height: 12.8rem;'} onChange={(e) => setStatement(e.target.value)} as="textarea" placeholder="For example x, y and z" required />
@@ -83,7 +100,7 @@ export default function SubmitAnswerForm(props) {
             </FormWrapper>
             <ButtonWrapper>
                 <Button background={'background: none;'} type="button" onClick={() => setVisual(false)}>
-                    Cancle
+                    Cancel
                 </Button>
                 <Button background={'background: #FFB800;'} type="submit" form="answerForm">
                     Submit Answer
@@ -92,6 +109,31 @@ export default function SubmitAnswerForm(props) {
         </CustomForm>
     </MainWrapper>
 }
+
+const TDIV = styled.div`
+    display: flex;
+    align-items: center;
+`
+
+const Group = styled(Form.Group)`
+    display: flex;
+    gap: 2rem;
+`
+
+const Input = styled(Form.Check)`
+    height: 24px;
+    margin: 0 0.7rem 0 0;
+    padding: 0;
+    input[type='radio'] {
+        margin: 0;
+        width: 2.8rem;
+        height: 2.8rem;
+    }
+    input[type='radio']:checked {
+        background-color: #FFB800;
+        height: 2.8rem;
+    }
+`
 
 const MainWrapper = styled.div`
     display: grid;
@@ -117,9 +159,9 @@ const Title = styled.h1`
 
 const ButtonWrapper = styled.div`
     display: grid;
-    grid-template-columns: repeat(3,auto);
-    column-gap: 1rem;
-    justify-content: end; 
+    grid-template-columns: repeat(2,auto);
+    gap: 1rem;
+    justify-content: end;
 `
 
 const Button = styled.button`
@@ -152,6 +194,7 @@ const FormLabel = styled.h1`
 const FormInput = styled.input`
   font-family: Open Sans;
   border-radius: 1rem;
-
+  border: 1px solid #E5E5E5;
+  padding: 1.8rem 1.4rem;
   ${({ height }) => height}
 `

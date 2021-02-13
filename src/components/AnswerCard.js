@@ -21,7 +21,7 @@ function AnswerCard(props) {
       <AnswerHeader children={answer} setColor={setColor} />
     </>
     <>
-      <Text.Small>Asked by <b>DEMO</b> </Text.Small>
+      <Text.Small>Answered by <b>DEMO</b> </Text.Small>
     </>
     <>
       <Text.Small children={text} />
@@ -33,17 +33,26 @@ function AnswerCard(props) {
     </MediaWrapper>
     <ButtonWrapper>
       <VoteButton background={`background: #23BE7B;`}>
-        {credibleCount} Credible
+        <VoteButtonInnerWrapper>
+          <Text.SmallStrong children={credibleCount} />
+          Credible
+        </VoteButtonInnerWrapper>
       </VoteButton>
       <VoteButton background={`background: #E55934;`}>
-        {notCredibleCount} Not Credible
+        <VoteButtonInnerWrapper>
+          <Text.SmallStrong children={notCredibleCount} />
+          Not Credible
+        </VoteButtonInnerWrapper>
       </VoteButton>
     </ButtonWrapper>
   </div>
 }
 
+
+
 const AnswerHeader = styled(Text.H2)`
   margin-bottom: 1rem;
+  text-transform: uppercase;
   ${({ setColor }) => setColor ? `color: #23BE7B` : `color: #E55934`}
 `
 
@@ -76,18 +85,22 @@ const MediaTitle = styled(Text.Small)`
 `
 
 const ButtonWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 13rem 13rem;
+  display: flex;
   gap: 1rem;
+`
+
+const VoteButtonInnerWrapper = styled.div`
+  display: flex;
+  gap: 0.3rem;
 `
 
 const VoteButton = styled.button`
   border-radius: .5rem;
   padding: 0.3rem 0.9rem;
   border-style: none;
-  width: 100%;
   color: white;
   background: #E55934;
+  font-size: 1.4rem;
   ${({ background }) => background}
 `
 

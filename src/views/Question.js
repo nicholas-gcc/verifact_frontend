@@ -7,6 +7,7 @@ import Query from '../components/Query'
 import QuestionCard from "../components/QuestionCard";
 import SubmitAnswerForm from "../components/SubmitAnswerForm";
 import AnswerCard from "../components/AnswerCard";
+import { Text } from '../styles'
 
 const query = graphql`
   query QuestionQuery ($question_id: ID!){
@@ -40,10 +41,10 @@ export default function Question(props) {
                 <FormWrapper >
                   <SubmitAnswerForm setVisual={() => setShowAnswerForm(false)} questionID={question_id} />
                 </FormWrapper>
-                <Title >All Answer</Title>
+                <H2TextNoMargin children="All Answer" />
               </>) :
               (<>
-                <Title >All Answer</Title>
+                <H1TextNoMargin children="All Answer" />
                 <CustomButton onClick={() => setShowAnswerForm(true)}>Answer the Question</CustomButton>
               </>)}
           </HeaderWrapper>
@@ -54,11 +55,19 @@ export default function Question(props) {
   />
 }
 
+const H2TextNoMargin = styled(Text.H2)`
+  margin: 0;
+`
+
+const H1TextNoMargin = styled(Text.H1)`
+  margin: auto 0;
+`
+
 const Wrapper = styled.div`
   padding: 0 16.6rem;
 
   @media (max-width: 767px) {
-    padding: 0 2rem;
+            padding: 0 2rem;
     margin: 0;
   }
 `
@@ -79,12 +88,6 @@ const FormWrapper = styled.div`
   margin-bottom: 6rem;
 `
 
-const Title = styled.h1`
-  font-size: 3.2rem;
-  font-style: normal;
-  font-weight: 700;
-`
-
 const CustomButton = styled(Button)`
   background-color: #FFB800;
   color: #30323D;
@@ -98,7 +101,7 @@ const CustomButton = styled(Button)`
   justify-self: end;
 
   &:hover{
-    background-color: #FFB800;
+            background - color: #FFB800;
     color: #30323D;
   }
 `
@@ -106,7 +109,7 @@ const CustomButton = styled(Button)`
 const AnswerWrapper = styled.div`
   display: grid;
   background: #EEF0F2;
-  padding: 1.5rem 3rem;
+  padding: 2rem 2rem 2.386rem 2rem;
   margin: 3rem 0;
   border-radius: 2rem;
   word-wrap: break-word;

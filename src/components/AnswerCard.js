@@ -6,45 +6,41 @@ import { createFragmentContainer } from 'react-relay'
 
 import { Text } from '../styles'
 
-function AnswerCard(props) {
-  const { id,
+function AnswerCard({ answer_obj }) {
+  const {
+    id,
     answer,
     text,
     citationUrl,
     citationTitle,
     credibleCount,
-    notCredibleCount } = props.answer
-  const setColor = (answer === 'True') ? true : false;
+    notCredibleCount
+  } = answer_obj
+  const setColor = (answer === 'True');
 
   return <div key={id}>
-    <>
-      <AnswerHeader children={answer} setColor={setColor} />
-    </>
-    <>
-      <Text.Small>Answered by <b>DEMO</b> </Text.Small>
-    </>
-    <>
-      <Text.Small children={text} />
-    </>
-    <MediaWrapper>
+    <AnswerHeader children={answer} setColor={setColor} />
+    <Text.Small>Answered by <b>DEMO</b> </Text.Small>
+    <Text.Small children={text} />
+    <MediaWrap>
       <FiArrowUpRight />
       <MediaLink onClick={event => { event.stopPropagation(); }} href={citationUrl} >{citationUrl}</MediaLink>
       <MediaTitle>{citationTitle}</MediaTitle>
-    </MediaWrapper>
-    <ButtonWrapper>
-      <VoteButton background={`background: #23BE7B;`}>
-        <VoteButtonInnerWrapper>
+    </MediaWrap>
+    <ButtonWrap>
+      <VoteButton background={'green'}>
+        <VoteButtonInnerWrap>
           <Text.SmallStrong children={credibleCount} />
           Credible
-        </VoteButtonInnerWrapper>
+        </VoteButtonInnerWrap>
       </VoteButton>
-      <VoteButton background={`background: #E55934;`}>
-        <VoteButtonInnerWrapper>
+      <VoteButton background={'red'}>
+        <VoteButtonInnerWrap>
           <Text.SmallStrong children={notCredibleCount} />
           Not Credible
-        </VoteButtonInnerWrapper>
+        </VoteButtonInnerWrap>
       </VoteButton>
-    </ButtonWrapper>
+    </ButtonWrap>
   </div>
 }
 
@@ -53,10 +49,10 @@ function AnswerCard(props) {
 const AnswerHeader = styled(Text.H2)`
   margin-bottom: 1rem;
   text-transform: uppercase;
-  ${({ setColor }) => setColor ? `color: #23BE7B` : `color: #E55934`}
+  ${({ setColor }) => setColor ? `color: var(--Green)` : `color: var(--Red)`}
 `
 
-const MediaWrapper = styled.div`
+const MediaWrap = styled.div`
   display: flex;
   overflow: hidden;
   text-overflow: ellipsis; 
@@ -68,10 +64,11 @@ const MediaLink = styled.a`
   text-overflow: ellipsis;
   font-size: 1rem;
   font-weight: 700;
-  color: #30323D;
+  color: var(--TextPrimary);
 
   &:hover{
-      text - decoration: none;
+    color: var(--TextPrimary);
+    text-decoration: none;
   }
 `
 
@@ -84,12 +81,12 @@ const MediaTitle = styled(Text.Small)`
   white-space: nowrap;
 `
 
-const ButtonWrapper = styled.div`
+const ButtonWrap = styled.div`
   display: flex;
   gap: 1rem;
 `
 
-const VoteButtonInnerWrapper = styled.div`
+const VoteButtonInnerWrap = styled.div`
   display: flex;
   gap: 0.3rem;
 `
@@ -99,24 +96,23 @@ const VoteButton = styled.button`
   padding: 0.3rem 0.9rem;
   border-style: none;
   color: white;
-  background: #E55934;
   font-size: 1.4rem;
-  ${({ background }) => background}
+  ${({ background }) => (background === 'green') ? `background: var(--Green)` : `background : var(--Red)`}
 `
 
 export default createFragmentContainer(
   AnswerCard,
   {
-    answer: graphql`
-      fragment AnswerCard_answer on AnswerNode {
-        id
-        answer
-        text
-        citationUrl
-        citationTitle
-        credibleCount
-        notCredibleCount
-      }
+    answer_obj: graphql`
+    fragment AnswerCard_answer on AnswerNode {
+      id
+      answer
+      text
+      citationUrl
+      citationTitle
+      credibleCount
+      notCredibleCount
+    }
     `
   }
 )

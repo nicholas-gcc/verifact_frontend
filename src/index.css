@@ -22,3 +22,10 @@ code {
 img {
   max-width: 100%;
 }
+
+:root {
+  --Red: #E55934;
+  --Green: #23BE7B;
+  --Primary: #FFB800;
+  --TextPrimary: #30323D;
+}

@@ -48,7 +48,7 @@ export default function Question(props) {
                 <CustomButton onClick={() => setShowAnswerForm(true)}>Answer the Question</CustomButton>
               </>)}
           </HeaderWrapper>
-          {props.node.answers.edges.map(({ node }) => { return <AnswerWrapper key={node.id} ><AnswerCard answer={node} visual={false} /></AnswerWrapper> })}
+          {props.node.answers.edges.map(({ node }) => { return <AnswerWrapper key={node.id} ><AnswerCard answer_obj={node} visual={false} /></AnswerWrapper> })}
         </Wrapper>
       }
     }}

@@ -20,14 +20,16 @@ const query = graphql`
   }
 `
 
-export default function Question(props) {
+export default function Question (props)
+{
   const question_id = props.match.params.id;
   const [showAnswerForm, setShowAnswerForm] = useState(false)
 
   return <Query
     query={query}
     variables={{ question_id }}
-    render={({ error, props }) => {
+    render={({ error, props }) =>
+    {
       if (!props) {
         return <div>Loading...</div>
       } else if (error) {
@@ -41,10 +43,10 @@ export default function Question(props) {
                 <FormWrapper >
                   <SubmitAnswerForm setVisual={() => setShowAnswerForm(false)} questionID={question_id} />
                 </FormWrapper>
-                <H2TextNoMargin children="All Answer" />
+                <H2TextWithoutMargin children="All Answer" />
               </>) :
               (<>
-                <H1TextNoMargin children="All Answer" />
+                <H1TextWithMargin children="All Answer" />
                 <CustomButton onClick={() => setShowAnswerForm(true)}>Answer the Question</CustomButton>
               </>)}
           </HeaderWrapper>
@@ -55,19 +57,18 @@ export default function Question(props) {
   />
 }
 
-const H2TextNoMargin = styled(Text.H2)`
+const H2TextWithoutMargin = styled(Text.H2)`
   margin: 0;
 `
 
-const H1TextNoMargin = styled(Text.H1)`
+const H1TextWithMargin = styled(Text.H1)`
   margin: auto 0;
 `
 
 const Wrapper = styled.div`
   padding: 0 16.6rem;
-
   @media (max-width: 767px) {
-            padding: 0 2rem;
+    padding: 0 2rem;
     margin: 0;
   }
 `
@@ -101,7 +102,7 @@ const CustomButton = styled(Button)`
   justify-self: end;
 
   &:hover{
-            background - color: #FFB800;
+    background-color: #FFB800;
     color: #30323D;
   }
 `

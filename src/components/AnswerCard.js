@@ -4,7 +4,7 @@ import styled from "styled-components";
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 
-import { Text } from '../styles'
+import { Text, Button } from '../styles'
 
 function AnswerCard({ answer_obj }) {
   const {
@@ -18,44 +18,52 @@ function AnswerCard({ answer_obj }) {
   } = answer_obj
   const setColor = (answer === 'True');
 
-  return <div key={id}>
+  return <AnswerCardWrap key={id}>
     <AnswerHeader children={answer} setColor={setColor} />
     <Text.Small>Answered by <b>DEMO</b> </Text.Small>
     <Text.Small children={text} />
     <MediaWrap>
-      <FiArrowUpRight />
-      <MediaLink onClick={event => { event.stopPropagation(); }} href={citationUrl} >{citationUrl}</MediaLink>
+      <div>
+        <FiArrowUpRight size={10} />
+        <MediaLink onClick={event => { event.stopPropagation(); }} href={citationUrl} >{citationUrl}</MediaLink>
+      </div>
       <MediaTitle>{citationTitle}</MediaTitle>
     </MediaWrap>
     <ButtonWrap>
-      <VoteButton background={'green'}>
+      <Button.VoteButton background={'Green'}>
         <VoteButtonInnerWrap>
           <Text.SmallStrong children={credibleCount} />
-          Credible
+          <Text.Small>Credible</Text.Small>
         </VoteButtonInnerWrap>
-      </VoteButton>
-      <VoteButton background={'red'}>
+      </Button.VoteButton>
+      <Button.VoteButton background={'Red'}>
         <VoteButtonInnerWrap>
           <Text.SmallStrong children={notCredibleCount} />
-          Not Credible
+          <Text.Small>Not Credible</Text.Small>
         </VoteButtonInnerWrap>
-      </VoteButton>
+      </Button.VoteButton>
     </ButtonWrap>
-  </div>
+  </AnswerCardWrap>
 }
 
-
+const AnswerCardWrap = styled.div`
+  display: grid;
+  grid-template-rows: repeat(5, auto);
+  grid-gap: 1rem;
+`
 
 const AnswerHeader = styled(Text.H2)`
-  margin-bottom: 1rem;
+  margin: 0;
   text-transform: uppercase;
-  ${({ setColor }) => setColor ? `color: var(--Green)` : `color: var(--Red)`}
+  color: ${({ setColor }) => setColor ? `var(--Green)` : `var(--Red)`};
 `
 
 const MediaWrap = styled.div`
   display: flex;
   overflow: hidden;
   text-overflow: ellipsis; 
+  column-gap: 0.5rem;
+  align-items: center;
 `
 
 const MediaLink = styled.a`
@@ -72,10 +80,7 @@ const MediaLink = styled.a`
   }
 `
 
-const MediaTitle = styled(Text.Small)`
-  font-size: 1.2rem;
-  font-weight: 400;
-  margin-left: 0.5rem;
+const MediaTitle = styled(Text.Tiny)`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -87,17 +92,9 @@ const ButtonWrap = styled.div`
 `
 
 const VoteButtonInnerWrap = styled.div`
-  display: flex;
-  gap: 0.3rem;
-`
-
-const VoteButton = styled.button`
-  border-radius: .5rem;
-  padding: 0.3rem 0.9rem;
-  border-style: none;
-  color: white;
-  font-size: 1.4rem;
-  ${({ background }) => (background === 'green') ? `background: var(--Green)` : `background : var(--Red)`}
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 0.3rem;
 `
 
 export default createFragmentContainer(

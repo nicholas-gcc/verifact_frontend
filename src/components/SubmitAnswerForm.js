@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { graphql } from 'babel-plugin-relay/macro'
 import { useHistory } from 'react-router-dom'
 
+import { Text, Button, Input } from '../styles'
 import mutate from '../utils/mutate'
 
 const mutation = graphql`
@@ -14,7 +15,8 @@ const mutation = graphql`
                 answer
             }
         }
-    }`
+    }
+`
 
 export default function SubmitAnswerForm(props) {
     const history = useHistory();
@@ -36,20 +38,18 @@ export default function SubmitAnswerForm(props) {
         }
         mutate(mutation, variables)
             .then(() => { history.push('/login') })
-            .catch(err => console.log(err[0].message))
     }
 
     return <MainWrapper>
-        <>
-            <Title>Answer the Question</Title>
-        </>
-        <CustomForm id="answerForm" onSubmit={handleSubmit}>
-            <Group>
+        <div>
+            <Text.H1>Answer the Question</Text.H1>
+        </div>
+        <FormWrap id="answerForm" onSubmit={handleSubmit}>
+            <FormGroup>
                 <TDIV>
                     <div>
-                        <Input
+                        <FormRadioButton
                             defaultChecked
-                            inline
                             type="radio"
                             name="formHorizontalRadios"
                             id="formHorizontalRadios1"
@@ -57,12 +57,12 @@ export default function SubmitAnswerForm(props) {
                         />
                     </div>
                     <div>
-                        <label>True</label>
+                        <FormOptionLabel>True</FormOptionLabel>
                     </div>
                 </TDIV>
                 <TDIV>
                     <div>
-                        <Input
+                        <FormRadioButton
                             inline
                             type="radio"
                             name="formHorizontalRadios"
@@ -71,12 +71,12 @@ export default function SubmitAnswerForm(props) {
                         />
                     </div>
                     <div>
-                        <label>False</label>
+                        <FormOptionLabel>False</FormOptionLabel>
                     </div>
                 </TDIV>
                 <TDIV>
                     <div>
-                        <Input
+                        <FormRadioButton
                             inline
                             type="radio"
                             name="formHorizontalRadios"
@@ -85,28 +85,28 @@ export default function SubmitAnswerForm(props) {
                         />
                     </div>
                     <div>
-                        <label>Uncertain</label>
+                        <FormOptionLabel>Uncertain</FormOptionLabel>
                     </div>
                 </TDIV>
-            </Group>
+            </FormGroup>
 
-            <FormWrapper>
-                <FormLabel>Explain your answer</FormLabel>
-                <FormInput height={'height: 12.8rem;'} onChange={(e) => setStatement(e.target.value)} as="textarea" placeholder="For example x, y and z" required />
-            </FormWrapper>
-            <FormWrapper>
-                <FormLabel>Citation (News URL)</FormLabel>
-                <FormInput height={'height: 5rem;'} onChange={(e) => setArticleLink(e.target.value)} type="text" placeholder="https://example.com/article" required />
-            </FormWrapper>
+            <FormTextWrap>
+                <FormSubLabel>Explain your answer</FormSubLabel>
+                <Input.InputText height={'12.8rem'} onChange={(e) => setStatement(e.target.value)} as="textarea" placeholder="For example x, y and z" required />
+            </FormTextWrap>
+            <FormTextWrap>
+                <FormSubLabel>Citation (News URL)</FormSubLabel>
+                <Input.InputText height={'5rem'} onChange={(e) => setArticleLink(e.target.value)} type="text" placeholder="https://example.com/article" required />
+            </FormTextWrap>
             <ButtonWrapper>
-                <Button background={'background: none;'} type="button" onClick={() => setVisual(false)}>
+                <Button.FormButton background={'none'} type="button" onClick={() => setVisual(false)}>
                     Cancel
-                </Button>
-                <Button background={'background: #FFB800;'} type="submit" form="answerForm">
-                    Submit Answer
-                </Button>
+                </Button.FormButton>
+                <Button.FormButton background={'Primary'} type="submit" form="answerForm">
+                    <Text.ParagraphStrong>Submit Answer</Text.ParagraphStrong>
+                </Button.FormButton>
             </ButtonWrapper>
-        </CustomForm>
+        </FormWrap>
     </MainWrapper>
 }
 
@@ -115,12 +115,26 @@ const TDIV = styled.div`
     align-items: center;
 `
 
-const Group = styled(Form.Group)`
+const FormGroup = styled(Form.Group)`
     display: flex;
     gap: 2rem;
 `
 
-const Input = styled(Form.Check)`
+const MainWrapper = styled.div`
+    display: grid;
+    width: 55rem;
+    row-gap: 3rem;
+    padding: 5rem;
+    background: #EEF0F2;
+    border-radius: 2rem;
+`
+
+const FormWrap = styled(Form)`
+    display: grid;
+    row-gap: 3rem;
+`
+
+const FormRadioButton = styled(Form.Check)`
     height: 24px;
     margin: 0 0.7rem 0 0;
     padding: 0;
@@ -135,28 +149,6 @@ const Input = styled(Form.Check)`
     }
 `
 
-const MainWrapper = styled.div`
-    display: grid;
-    width: 55rem;
-    row-gap: 3rem;
-    padding: 5rem;
-    background: #EEF0F2;
-    border-radius: 2rem;
-`
-
-const CustomForm = styled(Form)`
-    display: grid;
-    row-gap: 3rem;
-`
-
-const Title = styled.h1`
-    font-family: SF Pro Display;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 3.2rem;
-    line-height: 3.8rem;
-`
-
 const ButtonWrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(2,auto);
@@ -164,37 +156,19 @@ const ButtonWrapper = styled.div`
     justify-content: end;
 `
 
-const Button = styled.button`
-    background: none;
-    border-radius: 1rem;
-    border-style: none;
-    height: 3.9rem;
-
-    font-family: SF Pro Text;
-    font-size: 1.4rem;
-
-    font-weight: 700;
-    line-height: 1.7rem;
-    letter-spacing: 0;
-    padding: 1rem 1.5rem;
-
-    ${({ background }) => background}
+const FormTextWrap = styled.div`
+    display: grid;
+    grid-gap: 0.5rem;
 `
 
-const FormWrapper = styled.div`
-  display: grid;
+const FormSubLabel = styled(Text.Small)`
+    font-family: Open Sans;
+    font-weight: 600;
+    font-size: 1.6rem;
 `
 
-const FormLabel = styled.h1`
-  font-weight: 600;
-  font-size: 1.6rem;
-  font-family: Open Sans;
-`
-
-const FormInput = styled.input`
-  font-family: Open Sans;
-  border-radius: 1rem;
-  border: 1px solid #E5E5E5;
-  padding: 1.8rem 1.4rem;
-  ${({ height }) => height}
+const FormOptionLabel = styled(Text.Small)`
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 1.6rem;
 `

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Button } from "react-bootstrap";
-import styled from "styled-components";
+import React, { useState } from "react"
+import { Button } from "react-bootstrap"
+import styled from "styled-components"
 import graphql from 'babel-plugin-relay/macro'
 
 import Query from '../components/Query'
-import QuestionCard from "../components/QuestionCard";
-import SubmitAnswerForm from "../components/SubmitAnswerForm";
-import AnswerCard from "../components/AnswerCard";
+import QuestionCard from "../components/QuestionCard"
+import SubmitAnswerForm from "../components/SubmitAnswerForm"
+import AnswerCard from "../components/AnswerCard"
 import { Text } from '../styles'
 
 const query = graphql`
@@ -14,7 +14,14 @@ const query = graphql`
     node(id: $question_id) {
       ...QuestionCard_question
       ...on QuestionNode {
-        answers { edges { node { id ...AnswerCard_answer}}}
+        answers {
+          edges {
+            node {
+              id
+              ...AnswerCard_answer
+            }
+          }
+        }
       }
     }
   }
@@ -22,7 +29,7 @@ const query = graphql`
 
 export default function Question (props)
 {
-  const question_id = props.match.params.id;
+  const question_id = props.match.params.id
   const [showAnswerForm, setShowAnswerForm] = useState(false)
 
   return <Query
@@ -50,7 +57,7 @@ export default function Question (props)
                 <CustomButton onClick={() => setShowAnswerForm(true)}>Answer the Question</CustomButton>
               </>)}
           </HeaderWrapper>
-          {props.node.answers.edges.map(({ node }) => { return <AnswerWrapper key={node.id} ><AnswerCard answer_obj={node} visual={false} /></AnswerWrapper> })}
+          {props.node.answers.edges.map(({ node }) => { return <AnswerWrapper key={node.id} ><AnswerCard answer={node} visual={false} /></AnswerWrapper> })}
         </Wrapper>
       }
     }}

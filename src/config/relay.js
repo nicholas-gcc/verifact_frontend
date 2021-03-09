@@ -5,7 +5,7 @@ import {
   Store
 } from 'relay-runtime'
 
-const API_HOST = process.env.REACT_APP_API_HOST || 'http://127.0.0.1:8000'
+const API_HOST = process.env.REACT_APP_API_HOST || 'http://localhost:8000'
 
 const fetchQuery = async (operation, variables) => {
   return fetch(API_HOST + '/graphql', {

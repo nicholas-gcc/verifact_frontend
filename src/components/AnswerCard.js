@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react'
 import { FiArrowUpRight } from 'react-icons/fi'
-import styled from "styled-components";
+import styled from 'styled-components'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
 
 import { Text, Button } from '../styles'
 
-function AnswerCard({ answer_obj }) {
+function AnswerCard ({ answer: answerNode }) {
   const {
     id,
     answer,
@@ -15,8 +15,8 @@ function AnswerCard({ answer_obj }) {
     citationTitle,
     credibleCount,
     notCredibleCount
-  } = answer_obj
-  const setColor = (answer === 'True');
+  } = answerNode
+  const setColor = (answer === 'True')
 
   return <AnswerCardWrap key={id}>
     <AnswerHeader children={answer} setColor={setColor} />
@@ -25,7 +25,7 @@ function AnswerCard({ answer_obj }) {
     <MediaWrap>
       <div>
         <FiArrowUpRight size={10} />
-        <MediaLink onClick={event => { event.stopPropagation(); }} href={citationUrl} >{citationUrl}</MediaLink>
+        <MediaLink onClick={event => { event.stopPropagation() }} href={citationUrl} >{citationUrl}</MediaLink>
       </div>
       <MediaTitle>{citationTitle}</MediaTitle>
     </MediaWrap>
@@ -61,7 +61,7 @@ const AnswerHeader = styled(Text.H2)`
 const MediaWrap = styled.div`
   display: flex;
   overflow: hidden;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
   column-gap: 0.5rem;
   align-items: center;
 `
@@ -100,16 +100,16 @@ const VoteButtonInnerWrap = styled.div`
 export default createFragmentContainer(
   AnswerCard,
   {
-    answer_obj: graphql`
-    fragment AnswerCard_answer on AnswerNode {
-      id
-      answer
-      text
-      citationUrl
-      citationTitle
-      credibleCount
-      notCredibleCount
-    }
+    answer: graphql`
+      fragment AnswerCard_answer on AnswerNode {
+        id
+        answer
+        text
+        citationUrl
+        citationTitle
+        credibleCount
+        notCredibleCount
+      }
     `
   }
 )

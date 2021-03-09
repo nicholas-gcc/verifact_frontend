@@ -9,8 +9,8 @@ import AnswerCard from "../components/AnswerCard"
 import { Text, Button } from '../styles'
 
 const query = graphql`
-  query QuestionQuery ($question_id: ID!){
-    node(id: $question_id) {
+  query QuestionQuery ($questionId: ID!){
+    node(id: $questionId) {
       ...QuestionCard_question
       ...on QuestionNode {
         answers {
@@ -28,46 +28,56 @@ const query = graphql`
 
 export default function Question (props)
 {
-  const question_id = props.match.params.id
+  const questionId = props.match.params.id
   const [showAnswerForm, setShowAnswerForm] = useState(false)
 
-  return <Query
-    query={query}
-    variables={{ question_id }}
-    render={({ props }) => {
-      return (
-        <Wrapper>
-          <QuestionCard key={question_id} question={props.node} visual />
+  function open () {
+    setShowAnswerForm(true)
+  }
 
-          <HeaderWrapper enableForm={showAnswerForm}>
-            {showAnswerForm ? (
-              <>
-                <FormWrapper >
-                  <SubmitAnswerForm setVisual={() => setShowAnswerForm(false)} questionID={question_id} />
-                </FormWrapper>
-                <H2TextWithoutMargin children="All Answer" />
-              </>
-            ) : (
-              <>
-                <H1TextWithMargin children="All Answer" />
-                <CustomButton onClick={() => setShowAnswerForm(true)}>
-                  <Text.ParagraphStrong>Answer the Question</Text.ParagraphStrong>
-                </CustomButton>
-              </>
-            )}
-          </HeaderWrapper>
+  function close () {
+    setShowAnswerForm(false)
+  }
 
-          {props.node.answers.edges.map(({ node }) => {
-            return (
-              <AnswerWrapper key={node.id}>
-                <AnswerCard answer={node} visual={false} />
-              </AnswerWrapper>
-            )
-          })}
-        </Wrapper>
-      )
-    }}
-  />
+  return (
+    <Query
+      query={query}
+      variables={{ questionId }}
+      render={({ props }) => {
+        return (
+          <Wrapper>
+            <QuestionCard key={questionId} question={props.node} visual />
+
+            <HeaderWrapper enableForm={showAnswerForm}>
+              {showAnswerForm ? (
+                <>
+                  <FormWrapper >
+                    <SubmitAnswerForm close={close} questionID={questionId} />
+                  </FormWrapper>
+                  <H2TextWithoutMargin children="All Answer" />
+                </>
+              ) : (
+                <>
+                  <H1TextWithMargin children="All Answer" />
+                  <CustomButton onClick={open}>
+                    <Text.ParagraphStrong>Answer the Question</Text.ParagraphStrong>
+                  </CustomButton>
+                </>
+              )}
+            </HeaderWrapper>
+
+            {props.node.answers.edges.map(({ node }) => {
+              return (
+                <AnswerWrapper key={node.id}>
+                  <AnswerCard answer={node} visual={false} />
+                </AnswerWrapper>
+              )
+            })}
+          </Wrapper>
+        )
+      }}
+    />
+  )
 }
 
 const H2TextWithoutMargin = styled(Text.H2)`

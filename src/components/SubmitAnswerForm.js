@@ -20,7 +20,7 @@ const mutation = graphql`
 `
 
 export default function SubmitAnswerForm (props) {
-  const { setVisual, questionID } = props
+  const { close, questionID } = props
   const [answer, setAnswer] = useState('True')
   const [articleLink, setArticleLink] = useState('')
   const [statement, setStatement] = useState('')
@@ -37,7 +37,8 @@ export default function SubmitAnswerForm (props) {
         'questionId': questionID
       }
     }
-    mutate(mutation, variables)
+    await mutate(mutation, variables)
+    close()
   }
 
   return (
@@ -107,7 +108,7 @@ export default function SubmitAnswerForm (props) {
         </FormTextWrap>
 
         <ButtonWrapper>
-          <Button.FormButton background={'none'} type='button' onClick={() => setVisual(false)}>
+          <Button.FormButton background={'none'} type='button' onClick={close}>
               Cancel
           </Button.FormButton>
 

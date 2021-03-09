@@ -33,7 +33,7 @@ export default function SubmitAnswerForm (props) {
         'answer': answer,
         'text': statement,
         'citationUrl': articleLink,
-        'citationTitle': 'Hello world ctitle2',
+        'citationTitle': articleLink,
         'questionId': questionID
       }
     }

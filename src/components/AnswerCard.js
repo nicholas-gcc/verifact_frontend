@@ -12,7 +12,6 @@ function AnswerCard ({ answer: answerNode }) {
     answer,
     text,
     citationUrl,
-    citationTitle,
     credibleCount,
     notCredibleCount
   } = answerNode
@@ -27,7 +26,6 @@ function AnswerCard ({ answer: answerNode }) {
         <FiArrowUpRight size={10} />
         <MediaLink onClick={event => { event.stopPropagation() }} href={citationUrl} >{citationUrl}</MediaLink>
       </div>
-      <MediaTitle>{citationTitle}</MediaTitle>
     </MediaWrap>
     <ButtonWrap>
       <Button.VoteButton background={'Green'}>
@@ -78,12 +76,6 @@ const MediaLink = styled.a`
     color: var(--TextPrimary);
     text-decoration: none;
   }
-`
-
-const MediaTitle = styled(Text.Tiny)`
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
 `
 
 const ButtonWrap = styled.div`

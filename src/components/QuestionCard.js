@@ -10,21 +10,12 @@ import OpenGraphMeta from './OpenGraphMeta'
 import QuestionCardAnswersCount from './QuestionCardAnswersCount'
 
 const Wrap = styled.div`
-  border-bottom: 1px solid #6C718A;
-  padding: 6rem 0;
+  padding: 3rem 0;
   display: grid;
   cursor: pointer;
-
-  @media only screen and (max-width: 767px){
-    padding: 0;
-    margin: 0;
-  }
-  ${({ disableBtmBorader }) => disableBtmBorader && `
-    border-bottom: 0;
-  `}
 `
 
-function QuestionCard({ question, disableBtmBorader }) {
+function QuestionCard ({ question }) {
   const history = useHistory()
 
   const {
@@ -39,7 +30,7 @@ function QuestionCard({ question, disableBtmBorader }) {
   const formattedCreatedAt = monthDayYear.format(dt)
 
   return (
-    <Wrap disableBtmBorader={disableBtmBorader} onClick={() => history.push(`/question/${id}`)}>
+    <Wrap onClick={() => history.push(`/question/${id}`)}>
       <Text.H2 children={text} />
       <QuestionCardAnswersCount question={question} />
       <OpenGraphMeta

@@ -48,7 +48,7 @@ export default function SubmitAnswerForm(props) {
             <FormGroup>
                 <TDIV>
                     <div>
-                        <FormRadioButton
+                        <Input.Radio
                             defaultChecked
                             type="radio"
                             name="formHorizontalRadios"
@@ -62,7 +62,7 @@ export default function SubmitAnswerForm(props) {
                 </TDIV>
                 <TDIV>
                     <div>
-                        <FormRadioButton
+                        <Input.Radio
                             inline
                             type="radio"
                             name="formHorizontalRadios"
@@ -76,7 +76,7 @@ export default function SubmitAnswerForm(props) {
                 </TDIV>
                 <TDIV>
                     <div>
-                        <FormRadioButton
+                        <Input.Radio
                             inline
                             type="radio"
                             name="formHorizontalRadios"
@@ -102,7 +102,8 @@ export default function SubmitAnswerForm(props) {
                 <Button.FormButton background={'none'} type="button" onClick={() => setVisual(false)}>
                     Cancel
                 </Button.FormButton>
-                <Button.FormButton background={'Primary'} type="submit" form="answerForm">
+
+                <Button.FormButton type="submit" form="answerForm">
                     <Text.ParagraphStrong>Submit Answer</Text.ParagraphStrong>
                 </Button.FormButton>
             </ButtonWrapper>
@@ -132,21 +133,6 @@ const MainWrapper = styled.div`
 const FormWrap = styled(Form)`
     display: grid;
     row-gap: 3rem;
-`
-
-const FormRadioButton = styled(Form.Check)`
-    height: 24px;
-    margin: 0 0.7rem 0 0;
-    padding: 0;
-    input[type='radio'] {
-        margin: 0;
-        width: 2.8rem;
-        height: 2.8rem;
-    }
-    input[type='radio']:checked {
-        background-color: #FFB800;
-        height: 2.8rem;
-    }
 `
 
 const ButtonWrapper = styled.div`

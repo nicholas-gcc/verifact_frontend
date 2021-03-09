@@ -14,7 +14,7 @@ export const FormButton = styled.button`
     letter-spacing: 0;
     padding: 1rem 1.5rem;
 
-    background: ${({ background }) => `var(--${background})`};
+    background: ${({ background }) => background ? `var(--${background})` : `var(--Primary)`};
 `
 
 export const VoteButton = styled.button`

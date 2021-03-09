@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { Button } from "react-bootstrap"
 import styled from "styled-components"
 import graphql from 'babel-plugin-relay/macro'
 
@@ -7,7 +6,7 @@ import Query from '../components/Query'
 import QuestionCard from "../components/QuestionCard"
 import SubmitAnswerForm from "../components/SubmitAnswerForm"
 import AnswerCard from "../components/AnswerCard"
-import { Text } from '../styles'
+import { Text, Button } from '../styles'
 
 const query = graphql`
   query QuestionQuery ($question_id: ID!){
@@ -35,31 +34,38 @@ export default function Question (props)
   return <Query
     query={query}
     variables={{ question_id }}
-    render={({ error, props }) =>
-    {
-      if (!props) {
-        return <div>Loading...</div>
-      } else if (error) {
-        return <div>{error.message}</div>
-      } else {
-        return <Wrapper>
-          <QuestionCard key={question_id} question={props.node} disableBtmBorader={true} visual />
+    render={({ props }) => {
+      return (
+        <Wrapper>
+          <QuestionCard key={question_id} question={props.node} visual />
+
           <HeaderWrapper enableForm={showAnswerForm}>
-            {showAnswerForm ?
-              (<>
+            {showAnswerForm ? (
+              <>
                 <FormWrapper >
                   <SubmitAnswerForm setVisual={() => setShowAnswerForm(false)} questionID={question_id} />
                 </FormWrapper>
                 <H2TextWithoutMargin children="All Answer" />
-              </>) :
-              (<>
+              </>
+            ) : (
+              <>
                 <H1TextWithMargin children="All Answer" />
-                <CustomButton onClick={() => setShowAnswerForm(true)}>Answer the Question</CustomButton>
-              </>)}
+                <CustomButton onClick={() => setShowAnswerForm(true)}>
+                  <Text.ParagraphStrong>Answer the Question</Text.ParagraphStrong>
+                </CustomButton>
+              </>
+            )}
           </HeaderWrapper>
-          {props.node.answers.edges.map(({ node }) => { return <AnswerWrapper key={node.id} ><AnswerCard answer={node} visual={false} /></AnswerWrapper> })}
+
+          {props.node.answers.edges.map(({ node }) => {
+            return (
+              <AnswerWrapper key={node.id}>
+                <AnswerCard answer={node} visual={false} />
+              </AnswerWrapper>
+            )
+          })}
         </Wrapper>
-      }
+      )
     }}
   />
 }
@@ -96,22 +102,9 @@ const FormWrapper = styled.div`
   margin-bottom: 6rem;
 `
 
-const CustomButton = styled(Button)`
-  background-color: #FFB800;
-  color: #30323D;
-  border: none;
-  border-radius: 1rem;
-  padding: 1rem 1.5rem;
-  transition-duration: 0.4s;
-  font-weight: bold;
-  font-size: 1.6rem;
+const CustomButton = styled(Button.FormButton)`
   width: 20rem;
   justify-self: end;
-
-  &:hover{
-    background-color: #FFB800;
-    color: #30323D;
-  }
 `
 
 const AnswerWrapper = styled.div`

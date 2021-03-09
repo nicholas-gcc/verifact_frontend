@@ -2,19 +2,21 @@ import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import styled from 'styled-components'
 import { graphql } from 'babel-plugin-relay/macro'
-import { useHistory } from 'react-router-dom'
 
 import { Text, Button, Input } from '../styles'
 import mutate from '../utils/mutate'
 
 const mutation = graphql`
-    mutation SubmitAnswerFormMutation($input: AnswerCreateInput!){
-        answerCreate(input: $input){
-            answer{
-              ...AnswerCard_answer
-            }
+  mutation SubmitAnswerFormMutation($input: AnswerCreateInput!){
+    answerCreate(input: $input){
+      answer {
+        ...AnswerCard_answer
+        question {
+          ...QuestionCard_question
         }
+      }
     }
+  }
 `
 
 export default function SubmitAnswerForm (props) {
@@ -85,7 +87,7 @@ export default function SubmitAnswerForm (props) {
                 type='radio'
                 name='formHorizontalRadios'
                 id='formHorizontalRadios3'
-                onClick={() => setAnswer('Uncertain')}
+                onClick={() => setAnswer('Neither')}
               />
             </div>
             <div>
